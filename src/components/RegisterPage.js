@@ -16,7 +16,7 @@ const LoginRegister = () => {
   return (
     <div
       style={{
-        width: 350, // Genişlik
+        width: 300, // Genişlik
         margin: "auto", // Ortalamak için margin
         padding: 20, // İç boşluk
         boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)", // Gölgeleme
