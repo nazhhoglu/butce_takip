@@ -30,12 +30,16 @@ const LoginRegister = () => {
           {/* Login Formu */}
           <Form name="login" initialValues={{ remember: true }}>
             <Form.Item
-              name="username"
+              name="email"
               rules={[
-                { required: true, message: "Please input your Username!" },
+                {
+                  required: true,
+                  message: "Please input your Email!",
+                  type: "email",
+                },
               ]}
             >
-              <Input placeholder="Username" />
+              <Input placeholder="Email" />
             </Form.Item>
 
             <Form.Item
@@ -66,12 +70,19 @@ const LoginRegister = () => {
           {/* Register Formu */}
           <Form name="register" initialValues={{ remember: true }}>
             <Form.Item
-              name="username"
+              name="name"
+              rules={[{ required: true, message: "Please input your Name!" }]}
+            >
+              <Input placeholder="Name" />
+            </Form.Item>
+
+            <Form.Item
+              name="surname"
               rules={[
-                { required: true, message: "Please input your Username!" },
+                { required: true, message: "Please input your Surname!" },
               ]}
             >
-              <Input placeholder="Username" />
+              <Input placeholder="Surname" />
             </Form.Item>
 
             <Form.Item
