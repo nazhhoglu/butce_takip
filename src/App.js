@@ -1,11 +1,11 @@
 import React from "react";
-import RegisterPage from "./pages/RegisterPage";
+import LoginRegisterPage from "./pages/LoginRegisterPage";
 
 const App = () => {
   return (
     <div>
       <h1>SpendSmart'a Hoş geldiniz.</h1>
-      <RegisterPage /> {}
+      <LoginRegisterPage /> {}
     </div>
   );
 };

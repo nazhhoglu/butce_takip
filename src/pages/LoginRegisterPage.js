@@ -1,34 +1,60 @@
-// src/components/LoginRegister.js
 import React, { useState } from "react";
-import { Tabs, Form, Input, Button, Checkbox } from "antd";
+import { Tabs, Form, Input, Button, Checkbox, message } from "antd";
+import axios from "axios";
 
 const { TabPane } = Tabs;
 
-const LoginRegister = () => {
-  // Sekmeler arasında geçişi yönetmek için state (durum) tanımlanıyor
+const LoginRegisterPage = () => {
   const [activeTab, setActiveTab] = useState("1");
 
-  // Sekme değişikliklerini yönetmek için fonksiyon tanımlanıyor
   const onTabChange = (key) => {
     setActiveTab(key);
+  };
+
+  const onRegisterFinish = async (values) => {
+    try {
+      const response = await axios.post(
+        "https://v1.nocodeapi.com/nazhhoglu/google_sheets/aPbHKZGeCyToqPsU",
+        {
+          values: [
+            [values.name, values.surname, values.email, values.password],
+          ],
+        }
+      );
+
+      if (response.status === 200) {
+        message.success("Registration successful!");
+      } else {
+        message.error("Registration failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      message.error("An error occurred during registration. Please try again.");
+    }
+  };
+
+  const onLoginFinish = async (values) => {
+    // Giriş işlemini gerçekleştirecek kod burada olacak
   };
 
   return (
     <div
       style={{
-        width: 300, // Genişlik
-        margin: "auto", // Ortalamak için margin
-        padding: 20, // İç boşluk
-        boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)", // Gölgeleme
-        backgroundColor: "white", // Arka plan rengi
-        borderRadius: 10, // Kenar yuvarlaklığı
+        width: 300,
+        margin: "auto",
+        padding: 20,
+        boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+        backgroundColor: "white",
+        borderRadius: 10,
       }}
     >
-      {/* Sekmeler (Login ve Register) */}
       <Tabs defaultActiveKey="1" activeKey={activeTab} onChange={onTabChange}>
         <TabPane tab="Login" key="1">
-          {/* Login Formu */}
-          <Form name="login" initialValues={{ remember: true }}>
+          <Form
+            name="login"
+            initialValues={{ remember: true }}
+            onFinish={onLoginFinish}
+          >
             <Form.Item
               name="email"
               rules={[
@@ -67,8 +93,11 @@ const LoginRegister = () => {
           </Form>
         </TabPane>
         <TabPane tab="Register" key="2">
-          {/* Register Formu */}
-          <Form name="register" initialValues={{ remember: true }}>
+          <Form
+            name="register"
+            initialValues={{ remember: true }}
+            onFinish={onRegisterFinish}
+          >
             <Form.Item
               name="name"
               rules={[{ required: true, message: "Please input your Name!" }]}
@@ -123,4 +152,4 @@ const LoginRegister = () => {
   );
 };
 
-export default LoginRegister;
+export default LoginRegisterPage;
