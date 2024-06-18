@@ -15,8 +15,8 @@
     margin-left: auto; /* Formu sağa yaslamak için */
     margin-right: 275px; /* Formu sola kaydrımak için */
     padding: 20px;
-    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
-    background-color: rgb(101, 164, 185);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    background-color: rgb(101, 164, 185,0.4);
     border-radius: 20px;
     height: 400px;
   }
@@ -25,5 +25,26 @@
     background-color: rgb(0, 0, 0);
     border-radius: 10px;
     height: 45px;
+    margin-top: 40px;
   }
   
+input[type="email"],
+input[type="password"] {
+  padding: 10px;          /* İç boşluk (padding) ekler */
+  margin-bottom: 20px;    /* Alt boşluk ekler */
+  border: 1px solid #000000; /* Giriş alanının kenarlığını belirler */
+  border-radius: 7px;     /* Köşeleri yuvarlar */
+  transition: border-color 0.3s; /* Border rengini değiştirdiğimizde geçiş efekti ekler */
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: rgb(101,164,185); /* Odaklanıldığında kenarlık rengini değiştirir */
+  box-shadow: 0 0 5px rgba(101, 164, 185); /* Hafif bir gölge ekleyerek odaklandığını belli eder */
+}
+
+label {
+  margin-bottom: 10px;     /* Alt boşluk ekleyerek input ile aralarında boşluk bırakır */
+  font-weight: bold;      /* Yazı stilini kalın yapar */
+}
+
