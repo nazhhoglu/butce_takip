@@ -1,0 +1,41 @@
+.sign-in-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .button-wrapper {
+    margin: 10px 0;
+  }
+  
+  .login-button {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .login-button .icon {
+    margin-right: 10px;
+  }
+  
+  .google {
+    background-color: white;
+    color: #4285f4;
+    border: 1px solid #4285f4;
+  }
+  
+  .google:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .or {
+    margin: 20px 0;
+    font-size: 16px;
+    color: #555;
+  }
+  

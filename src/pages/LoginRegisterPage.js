@@ -3,6 +3,7 @@ import { Tabs, Form, Input, Button, Checkbox, message } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./LoginRegisterPage.css";
+import SignInButtons from "../components/SignInButtons";
 
 const { TabPane } = Tabs;
 
@@ -16,9 +17,12 @@ const LoginRegisterPage = () => {
 
   const onRegisterFinish = async (values) => {
     const endpointUrl =
-      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/BgMLnNnsWvDbVuLw";
+      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/nENujrhEzvjQZXIn?tabId=Users"; // NoCodeAPI'den aldığınız endpoint
     try {
       const response = await axios.post(endpointUrl, {
+        command: "appendRow",
+        sheet: "Users", // Çalışma sayfasının adı
+        range: "A:D", // Verilerin yazılacağı aralık
         values: [[values.name, values.surname, values.email, values.password]],
       });
 
@@ -35,7 +39,7 @@ const LoginRegisterPage = () => {
 
   const onLoginFinish = async (values) => {
     const endpointUrl =
-      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/BgMLnNnsWvDbVuLw";
+      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/nENujrhEzvjQZXIn?tabId=Users"; // NoCodeAPI'den aldığınız endpoint
     try {
       const response = await axios.get(endpointUrl);
 
@@ -64,11 +68,7 @@ const LoginRegisterPage = () => {
 
   return (
     <div className="login-register-container">
-      {" "}
-      {/* Yeni eklenen class */}
       <div className="login-form-container">
-        {" "}
-        {/* Yeni eklenen class */}
         <Tabs defaultActiveKey="1" activeKey={activeTab} onChange={onTabChange}>
           <TabPane tab="Login" key="1">
             <Form
@@ -113,6 +113,7 @@ const LoginRegisterPage = () => {
                 </Button>
               </Form.Item>
             </Form>
+            <SignInButtons />
           </TabPane>
           <TabPane tab="Register" key="2">
             <Form
