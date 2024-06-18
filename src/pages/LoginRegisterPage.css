@@ -1,0 +1,22 @@
+.login-register-container {
+    background-image: url('../assets/backgroundImage.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;    
+    height: 100vh; /* Sayfayı kaplamak için tam ekran yüksekliği */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-form-container {
+    width: 300px;
+    margin-left: auto; /* Formu sağ ortaya almak için */
+    margin-right: 200px; /* Formu sağ ortaya almak için */
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+  }
+  
