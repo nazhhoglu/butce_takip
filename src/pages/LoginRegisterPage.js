@@ -104,6 +104,7 @@ const LoginRegisterPage = () => {
 
               <Form.Item>
                 <Button
+                  className="custom-button"
                   type="primary"
                   htmlType="submit"
                   style={{ width: "100%" }}
@@ -159,6 +160,7 @@ const LoginRegisterPage = () => {
 
               <Form.Item>
                 <Button
+                  className="custom-button"
                   type="primary"
                   htmlType="submit"
                   style={{ width: "100%" }}
