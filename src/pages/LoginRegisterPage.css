@@ -28,18 +28,24 @@
     margin-top: 40px;
   }
   
-input[type="email"],
-input[type="password"] {
-  padding: 10px;          /* İç boşluk (padding) ekler */
-  margin-bottom: 20px;    /* Alt boşluk ekler */
-  border: 1px solid #000000; /* Giriş alanının kenarlığını belirler */
-  border-radius: 7px;     /* Köşeleri yuvarlar */
+/* Tüm input ve select elemanları için genel stil */
+.login-register-container .login-form-container
+.ant-input,
+.ant-input-password,
+.ant-select-selector,
+.ant-checkbox-wrapper {
+  padding: 10px; /* İç boşluk (padding) ekler */
+  margin-bottom: 10px; /* Alt boşluk ekler */
+  border: 0px solid #000000; /* Giriş alanının kenarlığını belirler */
+  border-radius: 8px; /* Köşeleri yuvarlar */
   transition: border-color 0.3s; /* Border rengini değiştirdiğimizde geçiş efekti ekler */
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-  border-color: rgb(101,164,185); /* Odaklanıldığında kenarlık rengini değiştirir */
+.login-register-container .login-form-container
+.ant-input:focus,
+.ant-input-password:focus,
+.ant-select-selector:focus {
+  border-color: rgb(101, 164, 185); /* Odaklanıldığında kenarlık rengini değiştirir */
   box-shadow: 0 0 5px rgba(101, 164, 185); /* Hafif bir gölge ekleyerek odaklandığını belli eder */
 }
 
