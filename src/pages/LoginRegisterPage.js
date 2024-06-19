@@ -15,8 +15,35 @@ const LoginRegisterPage = () => {
     setActiveTab(key);
   };
 
+  const checkDuplicateEmail = async (email) => {
+    try {
+      const response = await axios.get(
+        "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1"
+      );
+      const users = response.data.data;
+
+      // E-posta adreslerini kontrol et
+      const duplicateEmail = users.some(
+        (user) => user.email && user.email.toLowerCase() === email.toLowerCase()
+      );
+
+      return duplicateEmail;
+    } catch (error) {
+      console.error("E-posta kontrol hatası:", error);
+      throw new Error("E-posta kontrolünde bir hata oluştu.");
+    }
+  };
+
   const handleRegisterFinish = async (values) => {
     try {
+      const isDuplicateEmail = await checkDuplicateEmail(values.email);
+
+      if (isDuplicateEmail) {
+        message.error("Bu e-posta adresi zaten kayıtlı.");
+        return; // Kayıt işleminden çık
+      }
+
+      // E-posta adresi tekrar yok, kayıt işlemini gerçekleştir
       const response = await fetch(
         "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1",
         {
