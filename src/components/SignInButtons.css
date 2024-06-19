@@ -13,20 +13,24 @@
     align-items: center;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
+    height: 45px;
+    width: 300px;
     transition: background-color 0.3s;
+    margin-top: -10px;
   }
   
   .login-button .icon {
-    margin-right: 10px;
+    margin-right: 25px;
+    margin-left: 40px;
   }
   
   .google {
     background-color: white;
-    color: #4285f4;
-    border: 1px solid #4285f4;
+    color:  rgb(0, 0, 0);
+    border: 1px solid  rgba(101, 164, 185);
   }
   
   .google:hover {
@@ -34,7 +38,7 @@
   }
   
   .or {
-    margin: 20px 0;
+    margin: 10px;
     font-size: 16px;
     color: #555;
   }

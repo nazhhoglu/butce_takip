@@ -26,6 +26,8 @@
     border-radius: 10px;
     height: 45px;
     margin-top: 40px;
+    width: 300px;
+    font-size: 16px;
   }
   
 /* Tüm input ve select elemanları için genel stil */
@@ -47,10 +49,10 @@
 .ant-select-selector:focus {
   border-color: rgb(101, 164, 185); /* Odaklanıldığında kenarlık rengini değiştirir */
   box-shadow: 0 0 5px rgba(101, 164, 185); /* Hafif bir gölge ekleyerek odaklandığını belli eder */
+  font-size: 10px;
 }
 
 label {
   margin-bottom: 10px;     /* Alt boşluk ekleyerek input ile aralarında boşluk bırakır */
   font-weight: bold;      /* Yazı stilini kalın yapar */
 }
-
