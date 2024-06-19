@@ -49,7 +49,7 @@
 .ant-select-selector:focus {
   border-color: rgb(101, 164, 185); /* Odaklanıldığında kenarlık rengini değiştirir */
   box-shadow: 0 0 5px rgba(101, 164, 185); /* Hafif bir gölge ekleyerek odaklandığını belli eder */
-  font-size: 10px;
+  /*font-size: 10px;*/
 }
 
 label {
