@@ -1,5 +1,4 @@
 import React from "react";
-import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import "./SignInButtons.css";
 

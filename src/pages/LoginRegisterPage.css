@@ -56,3 +56,10 @@ label {
   margin-bottom: 10px;     /* Alt boşluk ekleyerek input ile aralarında boşluk bırakır */
   font-weight: bold;      /* Yazı stilini kalın yapar */
 }
+
+.login-register-container .login-form-container .forgot-password {
+  float: right; /* Şifremi unuttum metnini sağa yaslama */
+  margin-top: 10px; /* Yukarıdan boşluk ekler */
+  color: #5d0a35; /* Metin rengini belirler */
+  cursor: pointer; /* Fareyi el işareti yapar */
+}

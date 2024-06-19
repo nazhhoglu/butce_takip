@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Tabs, Form, Input, Button, Checkbox, message } from "antd";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./LoginRegisterPage.css";
 import SignInButtons from "../components/SignInButtons";
 
@@ -17,29 +17,37 @@ const LoginRegisterPage = () => {
 
   const onRegisterFinish = async (values) => {
     const endpointUrl =
-      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/nENujrhEzvjQZXIn?tabId=Users"; // NoCodeAPI'den aldığınız endpoint
+      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1"; // NoCodeAPI uç noktası
     try {
       const response = await axios.post(endpointUrl, {
         command: "appendRow",
-        sheet: "Users", // Çalışma sayfasının adı
+        sheet: "User", // Sayfa adı
         range: "A:D", // Verilerin yazılacağı aralık
         values: [[values.name, values.surname, values.email, values.password]],
       });
 
-      if (response.status === 200) {
-        message.success("Registration successful!");
+      if (response.status === 200 && response.data && response.data.success) {
+        message.success("Kayıt başarılı!");
       } else {
-        message.error("Registration failed. Please try again.");
+        console.error("Kayıt yanıt hatası:", response);
+        message.error("Kayıt başarısız. Lütfen tekrar deneyin.");
       }
     } catch (error) {
-      console.error("Registration error:", error);
-      message.error(`An error occurred during registration: ${error.message}`);
+      console.error(
+        "Kayıt hatası:",
+        error.response ? error.response.data : error.message
+      );
+      message.error(
+        `Kayıt sırasında bir hata oluştu: ${
+          error.response ? error.response.data.message : error.message
+        }`
+      );
     }
   };
 
   const onLoginFinish = async (values) => {
     const endpointUrl =
-      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/nENujrhEzvjQZXIn?tabId=Users"; // NoCodeAPI'den aldığınız endpoint
+      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1"; // NoCodeAPI uç noktası
     try {
       const response = await axios.get(endpointUrl);
 
@@ -49,20 +57,20 @@ const LoginRegisterPage = () => {
 
         if (user) {
           if (user[3] === values.password) {
-            message.success("Login successful!");
+            message.success("Giriş başarılı!");
             navigate("/home");
           } else {
-            message.error("Incorrect password.");
+            message.error("Yanlış şifre.");
           }
         } else {
-          message.error("Email not registered.");
+          message.error("Email kayıtlı değil.");
         }
       } else {
-        message.error("Failed to fetch users. Please try again.");
+        message.error("Kullanıcılar alınamadı. Lütfen tekrar deneyin.");
       }
     } catch (error) {
-      console.error("Login error:", error);
-      message.error(`An error occurred during login: ${error.message}`);
+      console.error("Giriş hatası:", error);
+      message.error(`Giriş sırasında bir hata oluştu: ${error.message}`);
     }
   };
 
@@ -70,7 +78,7 @@ const LoginRegisterPage = () => {
     <div className="login-register-container">
       <div className="login-form-container">
         <Tabs defaultActiveKey="1" activeKey={activeTab} onChange={onTabChange}>
-          <TabPane tab="Login" key="1">
+          <TabPane tab="Giriş" key="1">
             <Form
               name="login"
               initialValues={{ remember: true }}
@@ -81,7 +89,7 @@ const LoginRegisterPage = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Email!",
+                    message: "Lütfen Email'inizi girin!",
                     type: "email",
                   },
                 ]}
@@ -91,16 +99,18 @@ const LoginRegisterPage = () => {
 
               <Form.Item
                 name="password"
-                rules={[
-                  { required: true, message: "Please input your Password!" },
-                ]}
+                rules={[{ required: true, message: "Lütfen şifrenizi girin!" }]}
               >
-                <Input type="password" placeholder="Password" />
+                <Input type="password" placeholder="Şifre" />
               </Form.Item>
 
               <Form.Item name="remember" valuePropName="checked">
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox>Beni hatırla</Checkbox>
               </Form.Item>
+
+              <p>
+                <Link to="/reset-password">Şifrenizi mi unuttunuz?</Link>
+              </p>
 
               <Form.Item>
                 <Button
@@ -109,13 +119,13 @@ const LoginRegisterPage = () => {
                   htmlType="submit"
                   style={{ width: "100%" }}
                 >
-                  Login
+                  Giriş
                 </Button>
               </Form.Item>
             </Form>
             <SignInButtons />
           </TabPane>
-          <TabPane tab="Register" key="2">
+          <TabPane tab="Kayıt" key="2">
             <Form
               name="register"
               initialValues={{ remember: true }}
@@ -123,18 +133,18 @@ const LoginRegisterPage = () => {
             >
               <Form.Item
                 name="name"
-                rules={[{ required: true, message: "Please input your Name!" }]}
+                rules={[{ required: true, message: "Lütfen isminizi girin!" }]}
               >
-                <Input placeholder="Name" />
+                <Input placeholder="İsim" />
               </Form.Item>
 
               <Form.Item
                 name="surname"
                 rules={[
-                  { required: true, message: "Please input your Surname!" },
+                  { required: true, message: "Lütfen soyisminizi girin!" },
                 ]}
               >
-                <Input placeholder="Surname" />
+                <Input placeholder="Soyisim" />
               </Form.Item>
 
               <Form.Item
@@ -142,7 +152,7 @@ const LoginRegisterPage = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Email!",
+                    message: "Lütfen Email'inizi girin!",
                     type: "email",
                   },
                 ]}
@@ -152,11 +162,9 @@ const LoginRegisterPage = () => {
 
               <Form.Item
                 name="password"
-                rules={[
-                  { required: true, message: "Please input your Password!" },
-                ]}
+                rules={[{ required: true, message: "Lütfen şifrenizi girin!" }]}
               >
-                <Input type="password" placeholder="Password" />
+                <Input type="password" placeholder="Şifre" />
               </Form.Item>
 
               <Form.Item>
@@ -166,7 +174,7 @@ const LoginRegisterPage = () => {
                   htmlType="submit"
                   style={{ width: "100%" }}
                 >
-                  Register
+                  Kayıt Ol
                 </Button>
               </Form.Item>
             </Form>
