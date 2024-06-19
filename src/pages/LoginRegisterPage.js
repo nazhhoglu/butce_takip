@@ -15,62 +15,60 @@ const LoginRegisterPage = () => {
     setActiveTab(key);
   };
 
-  const onRegisterFinish = async (values) => {
-    const endpointUrl =
-      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1"; // NoCodeAPI uç noktası
+  const handleRegisterFinish = async (values) => {
     try {
-      const response = await axios.post(endpointUrl, {
-        command: "appendRow",
-        sheet: "User", // Sayfa adı
-        range: "A:D", // Verilerin yazılacağı aralık
-        values: [[values.name, values.surname, values.email, values.password]],
-      });
-
-      if (response.status === 200 && response.data && response.data.success) {
-        message.success("Kayıt başarılı!");
-      } else {
-        console.error("Kayıt yanıt hatası:", response);
-        message.error("Kayıt başarısız. Lütfen tekrar deneyin.");
-      }
-    } catch (error) {
-      console.error(
-        "Kayıt hatası:",
-        error.response ? error.response.data : error.message
+      const response = await fetch(
+        "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify([
+            [values.name, values.surname, values.email, values.password],
+          ]),
+        }
       );
-      message.error(
-        `Kayıt sırasında bir hata oluştu: ${
-          error.response ? error.response.data.message : error.message
-        }`
-      );
+      await response.json();
+      message.success("Kayıt başarılı!");
+      navigate("/home");
+    } catch (err) {
+      console.error(err);
+      message.error("Kayıt başarısız. Lütfen tekrar deneyin.");
     }
   };
 
-  const onLoginFinish = async (values) => {
+  const handleLoginFinish = async (values) => {
     const endpointUrl =
-      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1"; // NoCodeAPI uç noktası
+      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1";
+
     try {
       const response = await axios.get(endpointUrl);
+      const users = response.data.data;
 
-      if (response.status === 200) {
-        const users = response.data.data;
-        const user = users.find((user) => user[2] === values.email);
+      console.log("Gelen kullanıcılar:", users);
 
-        if (user) {
-          if (user[3] === values.password) {
-            message.success("Giriş başarılı!");
-            navigate("/home");
-          } else {
-            message.error("Yanlış şifre.");
-          }
-        } else {
-          message.error("Email kayıtlı değil.");
-        }
+      // Email ve şifrenin eşleşip eşleşmediğini kontrol et
+      const existingUser = users.find(
+        (user) =>
+          user.email &&
+          user.password &&
+          user.email.trim().toLowerCase() ===
+            values.email.trim().toLowerCase() &&
+          user.password.trim() === values.password.trim()
+      );
+
+      console.log("Eşleşen kullanıcı:", existingUser);
+
+      if (existingUser) {
+        message.success("Giriş başarılı!");
+        navigate("/home");
       } else {
-        message.error("Kullanıcılar alınamadı. Lütfen tekrar deneyin.");
+        message.error("Email veya şifre yanlış.");
       }
-    } catch (error) {
-      console.error("Giriş hatası:", error);
-      message.error(`Giriş sırasında bir hata oluştu: ${error.message}`);
+    } catch (err) {
+      console.error("Giriş hatası:", err);
+      message.error("Giriş başarısız. Lütfen tekrar deneyin.");
     }
   };
 
@@ -82,7 +80,7 @@ const LoginRegisterPage = () => {
             <Form
               name="login"
               initialValues={{ remember: true }}
-              onFinish={onLoginFinish}
+              onFinish={handleLoginFinish}
             >
               <Form.Item
                 name="email"
@@ -129,7 +127,7 @@ const LoginRegisterPage = () => {
             <Form
               name="register"
               initialValues={{ remember: true }}
-              onFinish={onRegisterFinish}
+              onFinish={handleRegisterFinish}
             >
               <Form.Item
                 name="name"
