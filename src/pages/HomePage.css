@@ -1,0 +1,41 @@
+/* General Layout */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 0 20px;
+  }
+  
+  .logo {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .site-layout-background {
+    background: #fff;
+  }
+  
+  /* Sidebar */
+  .site-layout-background .ant-menu {
+    height: 100%;
+    border-right: 0;
+  }
+  
+  .site-layout-background .ant-menu-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Content */
+  .site-card-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .dashboard-card {
+    flex: 1;
+    min-width: 300px;
+  }
+  
