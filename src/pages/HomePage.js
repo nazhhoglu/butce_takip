@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Menu, Breadcrumb, Card, Avatar } from "antd";
+import { Layout, Menu, Breadcrumb, Card } from "antd";
 import {
   DashboardOutlined,
   BarChartOutlined,
