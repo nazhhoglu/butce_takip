@@ -101,6 +101,7 @@ const LoginRegisterPage = () => {
 
   return (
     <div className="login-register-container">
+      <Link to="/home">Anasayfa</Link>
       <div className="login-form-container">
         <Tabs defaultActiveKey="1" activeKey={activeTab} onChange={onTabChange}>
           <TabPane tab="Giriş" key="1">
