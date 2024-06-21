@@ -101,7 +101,7 @@ const LoginRegisterPage = () => {
 
   return (
     <div className="login-register-container">
-      <Link to="/home">Anasayfa</Link>
+      <Link to="/home"  className="custom-link">Anasayfa</Link>
       <div className="login-form-container">
         <Tabs defaultActiveKey="1" activeKey={activeTab} onChange={onTabChange}>
           <TabPane tab="Giriş" key="1">
@@ -131,7 +131,7 @@ const LoginRegisterPage = () => {
               </Form.Item>
 
               <Form.Item name="remember" valuePropName="checked">
-                <Checkbox>Beni hatırla</Checkbox>
+                <Checkbox className="custom-checkbox">Beni hatırla</Checkbox>
               </Form.Item>
 
               <p>
