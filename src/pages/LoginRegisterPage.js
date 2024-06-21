@@ -22,7 +22,6 @@ const LoginRegisterPage = () => {
       );
       const users = response.data.data;
 
-      // E-posta adreslerini kontrol et
       const duplicateEmail = users.some(
         (user) => user.email && user.email.toLowerCase() === email.toLowerCase()
       );
@@ -40,10 +39,9 @@ const LoginRegisterPage = () => {
 
       if (isDuplicateEmail) {
         message.error("Bu e-posta adresi zaten kayıtlı.");
-        return; // Kayıt işleminden çık
+        return;
       }
 
-      // E-posta adresi tekrar yok, kayıt işlemini gerçekleştir
       const response = await fetch(
         "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1",
         {
@@ -75,7 +73,6 @@ const LoginRegisterPage = () => {
 
       console.log("Gelen kullanıcılar:", users);
 
-      // Email ve şifrenin eşleşip eşleşmediğini kontrol et
       const existingUser = users.find(
         (user) =>
           user.email &&
@@ -101,7 +98,9 @@ const LoginRegisterPage = () => {
 
   return (
     <div className="login-register-container">
-      <Link to="/home"  className="custom-link">Anasayfa</Link>
+      <Link to="/home" className="custom-link">
+        Anasayfa
+      </Link>
       <div className="login-form-container">
         <Tabs defaultActiveKey="1" activeKey={activeTab} onChange={onTabChange}>
           <TabPane tab="Giriş" key="1">
@@ -110,25 +109,33 @@ const LoginRegisterPage = () => {
               initialValues={{ remember: true }}
               onFinish={handleLoginFinish}
             >
-              <Form.Item
-                name="email"
-                rules={[
-                  {
-                    required: true,
-                    message: "Lütfen Email'inizi girin!",
-                    type: "email",
-                  },
-                ]}
-              >
-                <Input placeholder="Email" />
-              </Form.Item>
+              <div className="floating-label">
+                <Form.Item
+                  name="email"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Lütfen Email'inizi girin!",
+                      type: "email",
+                    },
+                  ]}
+                >
+                  <Input placeholder=" " />
+                  <label>Email</label>
+                </Form.Item>
+              </div>
 
-              <Form.Item
-                name="password"
-                rules={[{ required: true, message: "Lütfen şifrenizi girin!" }]}
-              >
-                <Input type="password" placeholder="Şifre" />
-              </Form.Item>
+              <div className="floating-label">
+                <Form.Item
+                  name="password"
+                  rules={[
+                    { required: true, message: "Lütfen şifrenizi girin!" },
+                  ]}
+                >
+                  <Input type="password" placeholder=" " />
+                  <label>Şifre</label>
+                </Form.Item>
+              </div>
 
               <Form.Item name="remember" valuePropName="checked">
                 <Checkbox className="custom-checkbox">Beni hatırla</Checkbox>
@@ -159,41 +166,57 @@ const LoginRegisterPage = () => {
               initialValues={{ remember: true }}
               onFinish={handleRegisterFinish}
             >
-              <Form.Item
-                name="name"
-                rules={[{ required: true, message: "Lütfen isminizi girin!" }]}
-              >
-                <Input placeholder="İsim" />
-              </Form.Item>
+              <div className="floating-label">
+                <Form.Item
+                  name="name"
+                  rules={[
+                    { required: true, message: "Lütfen isminizi girin!" },
+                  ]}
+                >
+                  <Input placeholder=" " />
+                  <label>İsim</label>
+                </Form.Item>
+              </div>
 
-              <Form.Item
-                name="surname"
-                rules={[
-                  { required: true, message: "Lütfen soyisminizi girin!" },
-                ]}
-              >
-                <Input placeholder="Soyisim" />
-              </Form.Item>
+              <div className="floating-label">
+                <Form.Item
+                  name="surname"
+                  rules={[
+                    { required: true, message: "Lütfen soyisminizi girin!" },
+                  ]}
+                >
+                  <Input placeholder=" " />
+                  <label>Soyisim</label>
+                </Form.Item>
+              </div>
 
-              <Form.Item
-                name="email"
-                rules={[
-                  {
-                    required: true,
-                    message: "Lütfen Email'inizi girin!",
-                    type: "email",
-                  },
-                ]}
-              >
-                <Input placeholder="Email" />
-              </Form.Item>
+              <div className="floating-label">
+                <Form.Item
+                  name="email"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Lütfen Email'inizi girin!",
+                      type: "email",
+                    },
+                  ]}
+                >
+                  <Input placeholder=" " />
+                  <label>Email</label>
+                </Form.Item>
+              </div>
 
-              <Form.Item
-                name="password"
-                rules={[{ required: true, message: "Lütfen şifrenizi girin!" }]}
-              >
-                <Input type="password" placeholder="Şifre" />
-              </Form.Item>
+              <div className="floating-label">
+                <Form.Item
+                  name="password"
+                  rules={[
+                    { required: true, message: "Lütfen şifrenizi girin!" },
+                  ]}
+                >
+                  <Input type="password" placeholder=" " />
+                  <label>Şifre</label>
+                </Form.Item>
+              </div>
 
               <Form.Item>
                 <Button

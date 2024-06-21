@@ -100,3 +100,40 @@ label {
 .ant-tabs-nav .ant-tabs-tab:hover .ant-tabs-tab-btn {
   color: rgb(32, 79, 97); /* Hover durumunda rengi değiştir */
 }
+
+.floating-label {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.floating-label input {
+  width: 100%;
+  padding: 12px 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.floating-label input:focus {
+  border-color: #65a4b9;
+}
+
+.floating-label input:focus + label,
+.floating-label input:not(:placeholder-shown) + label {
+  top: 10px;
+  font-size: 12px;
+  /*background: #fff; /* Beyaz arkaplan, gerektiğinde değiştirilebilir */
+  padding: 0 5px;
+}
+
+
+.floating-label label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  background: transparent;
+  transition: top 0.3s, font-size 0.3s;
+  pointer-events: none;
+}
