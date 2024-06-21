@@ -135,7 +135,7 @@ const LoginRegisterPage = () => {
               </Form.Item>
 
               <p>
-                <Link to="/resetpassword" className="forgot-password-link">
+                <Link to="/reset-password" className="forgot-password-link">
                   Şifrenizi mi unuttunuz?
                 </Link>
               </p>
