@@ -39,7 +39,7 @@ const SideMenu = () => (
       <Link to="/settings">Ayarlar</Link>
     </Menu.Item>
     <Menu.Item key="7" icon={<LogoutOutlined />}>
-      <Link to="/logout">Çıkış Yap</Link>
+      <Link to="/">Çıkış Yap</Link>
     </Menu.Item>
   </Menu>
 );

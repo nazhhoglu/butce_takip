@@ -8,6 +8,7 @@ import ProfilePage from "./pages/ProfilePage";
 import CalendarPage from "./pages/CalendarPage";
 import HeaderBar from "./components/Header";
 import SideMenu from "./components/Menu";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 const { Content, Sider } = Layout;
 
@@ -39,6 +40,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<LoginRegisterPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route
           path="/home"
           element={
@@ -64,7 +66,7 @@ const App = () => {
           }
         />
         <Route
-          path="/calender"
+          path="/calendar"
           element={
             <AppLayout>
               <CalendarPage />

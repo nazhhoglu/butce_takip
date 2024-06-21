@@ -28,15 +28,3 @@
     align-items: center;
   }
   
-  /* Content */
-  .site-card-wrapper {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-  }
-  
-  .dashboard-card {
-    flex: 1;
-    min-width: 300px;
-  }
-  
