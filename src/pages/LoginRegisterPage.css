@@ -20,6 +20,26 @@
     border-radius: 20px;
     height: 450px;
   }
+
+  .ant-tabs-tab {
+    font-size: 20px !important ;/* İstediğiniz font boyutunu buraya girin */
+    color: #c3149a; /* İstediğiniz rengi buraya girin */
+    margin-right: 20px ;
+  }
+  
+  .ant-tabs-tab-active {
+    font-size: 20px !important; /* Aktif tabın font boyutunu buraya girin */
+    color: #1890ff; /* Aktif tabın rengini buraya girin */
+  }
+
+  .ant-tabs-ink-bar {
+    background-color: #1890ff; /* Tabın altındaki çizginin rengini buraya girin */
+  }
+
+  .ant-tabs-nav {
+    display: flex;
+    justify-content: center;
+  }
   
   .login-register-container .login-form-container .ant-btn.custom-button {
     background-color: rgb(0, 0, 0);
