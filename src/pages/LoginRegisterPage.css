@@ -18,22 +18,26 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     background-color: rgb(101, 164, 185,0.4);
     border-radius: 20px;
-    height: 450px;
+    height: 460px;
   }
 
   .ant-tabs-tab {
     font-size: 20px !important ;/* İstediğiniz font boyutunu buraya girin */
-    color: #c3149a; /* İstediğiniz rengi buraya girin */
-    margin-right: 20px ;
+    color: rgb(83, 153, 179); /* İstediğiniz rengi buraya girin */
+    margin-right: 30px ;
+    font-weight: bold; 
+    margin-right: 50px;
+    margin-left: 50px;
   }
   
   .ant-tabs-tab-active {
-    font-size: 20px !important; /* Aktif tabın font boyutunu buraya girin */
-    color: #1890ff; /* Aktif tabın rengini buraya girin */
+    font-size: 25px !important; /* Aktif tabın font boyutunu buraya girin */
+    color:black; /* Aktif tabın rengini buraya girin */
+    font-weight: bold; 
   }
 
   .ant-tabs-ink-bar {
-    background-color: #1890ff; /* Tabın altındaki çizginin rengini buraya girin */
+    background-color: rgb(83,153,179) !important; /* Tabın altındaki çizginin rengini buraya girin */
   }
 
   .ant-tabs-nav {
