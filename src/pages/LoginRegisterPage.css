@@ -79,3 +79,11 @@ label {
   font-weight: bold;      /* Yazı stilini kalın yapar */
 }
 
+.forgot-password-link {
+  color: rgb(83,153,179); /* İstediğiniz rengi buraya ekleyin */
+  text-decoration: underline; /* Altını çizmek için */
+}
+.forgot-password-link:hover {
+  color: rgb(83,153,179); /* Hover sırasında istediğiniz rengi buraya ekleyin */
+  text-decoration: underline; /* Altını çizmek için */
+}
