@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import './ResetPasswordPage.css';
+import "./ResetPasswordPage.css";
+import { Link } from "react-router-dom";
 
 function ResetPasswordPage() {
   const [email, setEmail] = useState("");
@@ -13,18 +14,23 @@ function ResetPasswordPage() {
   return (
     <div className="reset-password-container">
       <h1 className="reset-password-title">$pend$mart Hesabını Bul</h1>
-      <form onSubmit={handleSubmit} className="reset-password-form" >
-        <div className="reset-password-form-item"> 
+      <form onSubmit={handleSubmit} className="reset-password-form">
+        <div className="reset-password-form-item">
           <label>Şifeni değiştirmek için lütfen e-posta adresini gir.</label>
           <input
             type="email"
-            placeholder= "Email"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
-        <button type="submit"  className="reset-password-button">Şifre Sıfırla</button>
+        <Link to="/" className="custom-link">
+          Giriş Sayfasına Dön
+        </Link>
+        <button type="submit" className="reset-password-button">
+          Şifre Sıfırla
+        </button>
       </form>
     </div>
   );
