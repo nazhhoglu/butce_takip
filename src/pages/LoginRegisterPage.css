@@ -125,12 +125,13 @@ label {
   font-size: 12px;
   /*background: #fff; /* Beyaz arkaplan, gerektiğinde değiştirilebilir */
   padding: 0 5px;
+  color:rgb(32, 79, 97,0.4);
 }
 
 
 .floating-label label {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 10px;
   transform: translateY(-50%);
   background: transparent;
