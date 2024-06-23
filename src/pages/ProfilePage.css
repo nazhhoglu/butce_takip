@@ -1,0 +1,61 @@
+.profile-form-container {
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto; /* Orta hizalama için */
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    background-color: rgba(101, 164, 185, 0.4);
+    border-radius: 20px;
+    height: 460px;
+  }
+  
+  .ant-tabs-tab {
+    font-size: 20px !important;
+    color: rgb(83, 153, 179);
+    font-weight: bold;
+    margin-right: 50px;
+    margin-left: 50px;
+  }
+  
+  .ant-tabs-tab-active {
+    font-size: 25px !important;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .ant-tabs-ink-bar {
+    background-color: rgb(32, 79, 97) !important;
+  }
+  
+  .ant-tabs-nav {
+    display: flex;
+    justify-content: center;
+    max-width: 100%; /* Orta hizalama için */
+  }
+  
+  .profile-form-container .ant-btn.custom-button {
+    background-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    height: 45px;
+    margin-bottom: 30px;
+    width: 300px;
+    font-size: 16px;
+  }
+  
+  .profile-form-container .ant-input,
+  .profile-form-container .ant-input-password,
+  .profile-form-container .ant-select-selector,
+  .profile-form-container .ant-checkbox-wrapper {
+    padding: 10px;
+    border: 0px solid #000000;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+  }
+  
+  .profile-form-container .ant-input:focus,
+  .profile-form-container .ant-input-password:focus,
+  .profile-form-container .ant-select-selector:focus {
+    border-color: rgb(101, 164, 185);
+    box-shadow: 0 0 5px rgba(101, 164, 185);
+  }
+  

@@ -90,14 +90,20 @@ const LoginRegisterPage = ({ onLoginFinish }) => {
                   },
                 ]}
               >
-                <Input placeholder="Email" />
+                <div className="floating-label">
+                  <Input placeholder=" " />
+                  <label>Email</label>
+                </div>
               </Form.Item>
 
               <Form.Item
                 name="password"
                 rules={[{ required: true, message: "Lütfen şifrenizi girin!" }]}
               >
-                <Input type="password" placeholder="Şifre" />
+                <div className="floating-label">
+                  <Input type="password" placeholder=" " />
+                  <label>Şifre</label>
+                </div>
               </Form.Item>
 
               <Form.Item name="remember" valuePropName="checked">
@@ -133,7 +139,10 @@ const LoginRegisterPage = ({ onLoginFinish }) => {
                 name="name"
                 rules={[{ required: true, message: "Lütfen isminizi girin!" }]}
               >
-                <Input placeholder="İsim" />
+                <div className="floating-label">
+                  <Input placeholder=" " />
+                  <label>İsim</label>
+                </div>
               </Form.Item>
 
               <Form.Item
@@ -142,7 +151,10 @@ const LoginRegisterPage = ({ onLoginFinish }) => {
                   { required: true, message: "Lütfen soyisminizi girin!" },
                 ]}
               >
-                <Input placeholder="Soyisim" />
+                <div className="floating-label">
+                  <Input placeholder=" " />
+                  <label>Soyisim</label>
+                </div>
               </Form.Item>
 
               <Form.Item
@@ -155,14 +167,20 @@ const LoginRegisterPage = ({ onLoginFinish }) => {
                   },
                 ]}
               >
-                <Input placeholder="Email" />
+                <div className="floating-label">
+                  <Input placeholder=" " />
+                  <label>Email</label>
+                </div>
               </Form.Item>
 
               <Form.Item
                 name="password"
                 rules={[{ required: true, message: "Lütfen şifrenizi girin!" }]}
               >
-                <Input type="password" placeholder="Şifre" />
+                <div className="floating-label">
+                  <Input type="password" placeholder=" " />
+                  <label>Şifre</label>
+                </div>
               </Form.Item>
 
               <Form.Item>

@@ -1,6 +1,12 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Layout } from "antd";
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import { Layout, message } from "antd";
+import axios from "axios";
 import LoginRegisterPage from "./pages/LoginRegisterPage";
 import HomePage from "./pages/HomePage";
 import StatisticsPage from "./pages/StatisticsPage";
@@ -36,10 +42,49 @@ const AppLayout = ({ children }) => (
 );
 
 const App = () => {
+  const [email, setEmail] = useState("");
+
+  const handleLoginFinish = async (values, navigate) => {
+    const endpointUrl =
+      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1";
+
+    try {
+      const response = await axios.get(endpointUrl);
+      const users = response.data.data;
+
+      console.log("Gelen kullanıcılar:", users);
+
+      const existingUser = users.find(
+        (user) =>
+          user.email &&
+          user.password &&
+          user.email.trim().toLowerCase() ===
+            values.email.trim().toLowerCase() &&
+          user.password.trim() === values.password.trim()
+      );
+
+      console.log("Eşleşen kullanıcı:", existingUser);
+
+      if (existingUser) {
+        message.success("Giriş başarılı!");
+        navigate("/home");
+        setEmail(values.email);
+      } else {
+        message.error("Email veya şifre yanlış.");
+      }
+    } catch (err) {
+      console.error("Giriş hatası:", err);
+      message.error("Giriş başarısız. Lütfen tekrar deneyin.");
+    }
+  };
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginRegisterPage />} />
+        <Route
+          path="/"
+          element={<LoginRegisterPage onLoginFinish={handleLoginFinish} />}
+        />
         <Route path="/resetpassword" element={<ResetPasswordPage />} />
         <Route
           path="/home"
@@ -53,7 +98,7 @@ const App = () => {
           path="/statistics"
           element={
             <AppLayout>
-              <StatisticsPage />
+              <StatisticsPage email={email} />
             </AppLayout>
           }
         />
