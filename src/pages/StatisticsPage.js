@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Table, Form, Input, Button, DatePicker, Select, message } from "antd";
-import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
@@ -9,13 +8,12 @@ const StatisticsPage = ({ email }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
-  const navigate = useNavigate(); // navigate fonksiyonunu kullanmak için
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (email) {
       fetchData(email);
     } else {
-      // Eğer email prop'u boşsa, kullanıcıyı giriş sayfasına yönlendir
       navigate("/");
     }
   }, [email, navigate]);
@@ -33,17 +31,23 @@ const StatisticsPage = ({ email }) => {
         }
       );
       const result = await response.json();
-      // Email adresine göre filtreleme yapıyoruz
-      const filteredData = result.data.filter((item) => item[0] === email);
-      // Verileri doğru formatta ayarlıyoruz
+      console.log("Fetched data:", result);
+      console.log("Email:", email);
+
+      const filteredData = result.data.filter(
+        (item) => item["email"] === email
+      );
+      console.log("Filtered data:", filteredData);
+
       const formattedData = filteredData.map((row, index) => ({
-        id: index + 1, // ID değerini ayarlıyoruz
-        email: row[0],
-        type: row[1],
-        date: row[2],
-        amount: row[3],
-        description: row[4],
+        id: index + 1,
+        email: row["email"],
+        type: row.type,
+        date: row["calendar_date"],
+        amount: row["amount"],
+        description: row["description"],
       }));
+      console.log("Formatted data:", formattedData);
       setData(formattedData);
       setLoading(false);
     } catch (error) {
@@ -73,7 +77,7 @@ const StatisticsPage = ({ email }) => {
       if (response.ok) {
         message.success("Kayıt eklendi.");
         form.resetFields();
-        fetchData(email); // Verileri yeniden çek
+        fetchData(email);
       } else {
         message.error("Kayıt eklenemedi.");
       }
@@ -96,12 +100,22 @@ const StatisticsPage = ({ email }) => {
 
       if (response.ok) {
         message.success("Kayıt silindi.");
-        fetchData(email); // Verileri yeniden çek
+        fetchData(email);
       } else {
         message.error("Kayıt silinemedi.");
       }
     } catch (error) {
       message.error("Kayıt silinemedi.");
+    }
+  };
+
+  const sendReport = () => {
+    if (email) {
+      message.info(`Raporunuz ${email} adresine gönderiliyor.`);
+    } else {
+      message.error(
+        "Rapor gönderilemedi, geçerli bir e-posta adresi bulunamadı."
+      );
     }
   };
 
@@ -173,8 +187,27 @@ const StatisticsPage = ({ email }) => {
         >
           <Input placeholder="Miktar" />
         </Form.Item>
-        <Form.Item name="description">
-          <Input placeholder="Açıklama" />
+        <Form.Item
+          name="desription"
+          rules={[{ required: true, message: "Açıklama gerekli" }]}
+        >
+          <Select placeholder="Açıklama">
+            <Option value="Eğitim">Eğitim</Option>
+            <Option value="Kira">Kira</Option>
+            <Option value="Fatura">Fatura</Option>
+            <Option value="Yemek">Yemek</Option>
+            <Option value="Sağlık">Sağlık</Option>
+            <Option value="Spor">Spor</Option>
+            <Option value="Eğlence">Eğlence</Option>
+            <Option value="Alışveriş">Alışveriş</Option>
+            <Option value="Ulaşım">Ulaşım</Option>
+            <Option value="Kredi Kartı">Kredi Kartı</Option>
+            <Option value="Sigorta">Sigorta</Option>
+            <Option value="Maaş">Maaş</Option>
+            <Option value="Burs">Burs</Option>
+            <Option value="Kredi">Kredi</Option>
+            <Option value="Diğer">Diğer</Option>
+          </Select>
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
@@ -182,11 +215,15 @@ const StatisticsPage = ({ email }) => {
           </Button>
         </Form.Item>
       </Form>
+      <Button type="primary" onClick={sendReport} style={{ marginTop: "20px" }}>
+        Rapor Gönder
+      </Button>
       <Table
         columns={columns}
         dataSource={data}
         loading={loading}
         rowKey={(record) => record.id}
+        style={{ marginTop: "20px" }}
       />
     </div>
   );
