@@ -1,59 +1,84 @@
-.profile-form {
-  max-width: 600px;
-  margin: 0 auto;
+/* Profile Page Form Container */
+.profile-page-form {
+  max-width: 700px;
+  margin-right: 850px;
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
+  background-color: rgba(83, 153, 179, 0.1);
+  margin-left: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 750px;
+  margin-top: 25px;
 }
 
-.form-group {
-  margin-bottom: 15px;
+/* Profile Page Input Pair */
+.profile-input-pair {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-.form-group label {
+/* Profile Page Floating Label */
+.profile-floating-label {
+  flex: 1;
+  position: relative;
+  margin-bottom:-120px;
+  margin-top:130px;
+}
+
+/* Profile Page Form Group */
+.profile-form-group {
+  margin-bottom: 30px;
+}
+
+.profile-form-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 30px;
   font-weight: bold;
 }
 
-.form-group input,
-.form-group select {
-  width: calc(100% - 20px);
+.profile-form-group input,
+.profile-form-group select {
+  width: 500px;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid rgb(32, 79, 97);
+  border-radius: 8px;
+  background: transparent;
+  
 }
 
-.gender-options {
-  display: flex;
-  gap: 20px;
-}
-
-.dob-options {
+/* Profile Page Gender Options */
+.profile-gender-options {
   display: flex;
   gap: 10px;
+  width: 30%;
+  margin-top: 150px;
+  margin-left: 100px;
 }
 
-.dob-options input,
-.dob-options select {
-  width: auto;
-  flex: 1;
+/* Profile Page Date of Birth Options */
+.profile-dob-options {
+  display: flex;
+  gap: 10px;
+  width: 48%;
+  margin-top: -140px;
+  margin-left:338px;
 }
 
-.photo-upload {
+/* Profile Page Photo Upload */
+.profile-photo-upload {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
 
-.photo-upload-label {
+.profile-photo-upload-label {
   cursor: pointer;
   display: inline-block;
 }
 
-.photo-preview {
+.profile-photo-preview {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -61,7 +86,7 @@
   border: 2px solid #ccc;
 }
 
-.photo-placeholder {
+.profile-photo-placeholder {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -73,16 +98,59 @@
   font-size: 14px;
 }
 
-button[type="submit"] {
-  width: 100%;
-  padding: 10px;
-  background-color: #4CAF50;
+/* Profile Page Submit Button */
+.profile-submit-button[type="submit"] {
+  width: 300px;
+  padding: 10px 20px;
+  background-color: rgb(83, 153, 179);
+  font-size: 15px;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
-  background-color: #45a049;
+.profile-submit-button[type="submit"]:hover {
+  background-color: rgb(32, 79, 97);
+}
+
+/* Profile Page Floating Label Input */
+.profile-floating-label input {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid rgb(32, 79, 97);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s;
+  background: transparent;
+}
+
+.profile-floating-label input:focus {
+  border-color: #65a4b9;
+}
+
+.profile-floating-label input:focus + label,
+.profile-floating-label input:not(:placeholder-shown) + label {
+  top: 10px;
+  font-size: 12px;
+  padding: 0 5px;
+  color: rgba(32, 79, 97, 0.4);
+}
+
+.profile-floating-label label {
+  position: absolute;
+  top: 40%;
+  left: 10px;
+  transform: translateY(-50%);
+  background: transparent;
+  transition: top 0.3s, font-size 0.3s;
+  pointer-events: none;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .profile-input-pair {
+    flex-direction: column;
+  }
 }

@@ -1,0 +1,49 @@
+/* src/components/Menu.css */
+
+  /* Menü öğeleri üzerine gelindiğinde */
+  .ant-menu-item:hover {
+    background-color: rgb(83, 153, 179); /* Arkaplan rengi hafif gri olacak */
+  }
+  
+  /* Seçili menü öğesi */
+  .ant-menu-item-selected {
+    background-color: rgba(224,233,238,255) !important; /* Seçili menü öğesi mavi tonunda olacak */
+  }
+
+  .custom-menu .ant-menu-item a {
+    color: rgb(83,153,179.0.2) !important; /* Örnek olarak mavi renk */
+  }
+
+  .anticon {
+    color: rgba(255, 255, 255,) !important;
+  }
+  .custom-menu-item {
+    margin-bottom: 18px !important; 
+    font-size:16px;
+    font-weight: bold; 
+  }
+  
+  .custom-menu{
+    background: rgb(69, 124, 146) !important
+  }
+  
+  /* Seçili menü öğeleri için stil */
+.custom-menu-item.ant-menu-item-selected {
+  background-color: #000000; /* Seçili öğenin arka plan rengi */
+  color:black !important; /* Seçili öğenin metin rengi */
+}
+
+/* Seçili menü öğelerinin ikonları için stil */
+.custom-menu-item.ant-menu-item-selected .anticon {
+  color: black !important; /* İkonların rengi */
+}
+/* Hover durumunda linklerin stili */
+.custom-menu-item:hover a {
+  color: black !important; /* Hover durumu için link rengi */
+}
+.custom-menu-item:hover .anticon {
+  color: black; /* Hover durumu için ikon rengi */
+}
+.custom-menu-item.ant-menu-item-selected a {
+  color: #000000; /* Seçili öğedeki link rengi */
+}

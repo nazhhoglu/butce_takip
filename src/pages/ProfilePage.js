@@ -40,64 +40,81 @@ const ProfilePage = () => {
   };
 
   return (
-    <form className="profile-form" onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>First Name</label>
-        <input
-          type="text"
-          name="firstName"
-          value={profile.firstName}
-          onChange={handleChange}
-        />
+    <form className="profile-page-form" onSubmit={handleSubmit}>
+      {/* Pairing First Name and Last Name */}
+      <div className="profile-input-pair">
+        <div className="profile-floating-label">
+          <label>First Name</label>
+          <input
+            type="text"
+            name="firstName"
+            value={profile.firstName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="profile-floating-label">
+          <label>Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            value={profile.lastName}
+            onChange={handleChange}
+          />
+        </div>
       </div>
-      <div className="form-group">
-        <label>Last Name</label>
-        <input
-          type="text"
-          name="lastName"
-          value={profile.lastName}
-          onChange={handleChange}
-        />
+
+      {/* Pairing Country and Telephone */}
+      <div className="profile-input-pair">
+        <div className="profile-floating-label">
+          <label>Country or Region</label>
+          <select
+            name="country"
+            value={profile.country}
+            onChange={handleChange}
+          >
+            <option value="Russia">Russia</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            {/* Add more countries as needed */}
+          </select>
+        </div>
+        <div className="profile-floating-label">
+          <label>Telephone</label>
+          <input
+            type="tel"
+            name="telephone"
+            value={profile.telephone}
+            onChange={handleChange}
+          />
+        </div>
       </div>
-      <div className="form-group">
-        <label>Country or Region</label>
-        <select name="country" value={profile.country} onChange={handleChange}>
-          <option value="Russia">Russia</option>
-          <option value="USA">USA</option>
-          <option value="Canada">Canada</option>
-          {/* Add more countries as needed */}
-        </select>
+
+      {/* Pairing Email and Password */}
+      <div className="profile-input-pair">
+        <div className="profile-floating-label">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={profile.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="profile-floating-label">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={profile.password}
+            onChange={handleChange}
+          />
+        </div>
       </div>
-      <div className="form-group">
-        <label>Telephone</label>
-        <input
-          type="tel"
-          name="telephone"
-          value={profile.telephone}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <label>Email</label>
-        <input
-          type="email"
-          name="email"
-          value={profile.email}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={profile.password}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
+
+      {/* Gender selection */}
+      <div className="profile-form-group">
         <label>Gender</label>
-        <div className="gender-options">
+        <div className="profile-gender-options">
           <input
             type="radio"
             name="gender"
@@ -115,10 +132,12 @@ const ProfilePage = () => {
           />{" "}
           Man
         </div>
-      </div>
-      <div className="form-group">
+      </div> 
+
+      {/* Date of Birth fields */}
+      <div className="profile-form-group">
         <label>Date of Birth</label>
-        <div className="dob-options">
+        <div className="profile-dob-options">
           <input
             type="number"
             name="birthYear"
@@ -155,7 +174,9 @@ const ProfilePage = () => {
           />
         </div>
       </div>
-      <div className="form-group">
+
+      {/* Photo Upload */}
+      <div className="profile-form-group">
         <label>Photo</label>
         <div className="photo-upload">
           <input
@@ -178,7 +199,10 @@ const ProfilePage = () => {
           </label>
         </div>
       </div>
-      <button type="submit">Submit</button>
+
+      <div className="profile-submit-button">
+        <button type="submit">Save</button>
+      </div>
     </form>
   );
 };

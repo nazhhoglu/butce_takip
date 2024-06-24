@@ -8,13 +8,13 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#1890ff",
+    backgroundColor: "rgb(224,233,238,255)",
     padding: "20px",
   },
   logo: {
-    fontSize: "20px",
+    fontSize: "35px",
     fontWeight: "bold",
-    color: "white",
+    color: "rgb(69, 124, 146)",
   },
 };
 
