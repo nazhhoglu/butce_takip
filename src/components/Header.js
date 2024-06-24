@@ -12,7 +12,7 @@ const styles = {
     padding: "20px",
   },
   logo: {
-    fontSize: "35px",
+    fontSize: "30px",
     fontWeight: "bold",
     color: "rgb(69, 124, 146)",
   },

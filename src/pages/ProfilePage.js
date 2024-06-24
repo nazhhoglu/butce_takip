@@ -35,85 +35,96 @@ const ProfilePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // handle form submission
+    // Form doğrulama
+    if (!profile.firstName || !profile.lastName || !profile.email || !profile.password) {
+      alert("Lütfen tüm alanları doldurun.");
+      return;
+    }
     console.log(profile);
+    // Burada form gönderimini gerçekleştirin
   };
 
   return (
     <form className="profile-page-form" onSubmit={handleSubmit}>
-      {/* Pairing First Name and Last Name */}
+      {/* Ad ve Soyad Alanları */}
       <div className="profile-input-pair">
         <div className="profile-floating-label">
-          <label>First Name</label>
+          <label>Ad</label>
           <input
             type="text"
             name="firstName"
             value={profile.firstName}
             onChange={handleChange}
+            placeholder="İlk adınız"
           />
         </div>
         <div className="profile-floating-label">
-          <label>Last Name</label>
+          <label>Soyad</label>
           <input
             type="text"
             name="lastName"
             value={profile.lastName}
             onChange={handleChange}
+            placeholder="Soyadınız"
           />
         </div>
       </div>
 
-      {/* Pairing Country and Telephone */}
+      {/* Ülke ve Telefon Alanları */}
       <div className="profile-input-pair">
         <div className="profile-floating-label">
-          <label>Country or Region</label>
+          <label>Ülke/Bölge</label>
           <select
             name="country"
             value={profile.country}
             onChange={handleChange}
           >
-            <option value="Russia">Russia</option>
-            <option value="USA">USA</option>
-            <option value="Canada">Canada</option>
-            {/* Add more countries as needed */}
+            <option value="Russia">Rusya</option>
+            <option value="USA">ABD</option>
+            <option value="Canada">Kanada</option>
+            <option value="Turkey">Türkiye</option>
+            {/* Diğer ülkeler eklenebilir */}
           </select>
         </div>
         <div className="profile-floating-label">
-          <label>Telephone</label>
+          <label>Telefon</label>
           <input
             type="tel"
             name="telephone"
             value={profile.telephone}
             onChange={handleChange}
+            placeholder="Telefon numaranız"
           />
         </div>
       </div>
 
-      {/* Pairing Email and Password */}
+      {/* E-posta ve Şifre Alanları */}
       <div className="profile-input-pair">
         <div className="profile-floating-label">
-          <label>Email</label>
+          <label>E-posta</label>
           <input
             type="email"
             name="email"
             value={profile.email}
             onChange={handleChange}
+            placeholder="E-posta adresiniz"
           />
         </div>
         <div className="profile-floating-label">
-          <label>Password</label>
+          <label>Şifre</label>
           <input
             type="password"
             name="password"
             value={profile.password}
             onChange={handleChange}
+            placeholder="Şifreniz"
           />
         </div>
       </div>
 
-      {/* Gender selection */}
+      {/* Cinsiyet Seçimi */}
       <div className="profile-form-group">
-        <label>Gender</label>
+        <label>Cinsiyet</label>
         <div className="profile-gender-options">
           <input
             type="radio"
@@ -122,7 +133,7 @@ const ProfilePage = () => {
             checked={profile.gender === "Woman"}
             onChange={handleChange}
           />{" "}
-          Woman
+          Kadın
           <input
             type="radio"
             name="gender"
@@ -130,13 +141,13 @@ const ProfilePage = () => {
             checked={profile.gender === "Man"}
             onChange={handleChange}
           />{" "}
-          Man
+          Erkek
         </div>
-      </div> 
+      </div>
 
-      {/* Date of Birth fields */}
+      {/* Doğum Tarihi Alanları */}
       <div className="profile-form-group">
-        <label>Date of Birth</label>
+        <label>Doğum Tarihi</label>
         <div className="profile-dob-options">
           <input
             type="number"
@@ -151,18 +162,18 @@ const ProfilePage = () => {
             value={profile.birthMonth}
             onChange={handleChange}
           >
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="April">April</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>
+            <option value="January">Ocak</option>
+            <option value="February">Şubat</option>
+            <option value="March">Mart</option>
+            <option value="April">Nisan</option>
+            <option value="May">Mayıs</option>
+            <option value="June">Haziran</option>
+            <option value="July">Temmuz</option>
+            <option value="August">Ağustos</option>
+            <option value="September">Eylül</option>
+            <option value="October">Ekim</option>
+            <option value="November">Kasım</option>
+            <option value="December">Aralık</option>
           </select>
           <input
             type="number"
@@ -175,9 +186,9 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      {/* Photo Upload */}
+      {/* Fotoğraf Yükleme */}
       <div className="profile-form-group">
-        <label>Photo</label>
+        <label>Fotoğraf</label>
         <div className="photo-upload">
           <input
             type="file"
@@ -194,14 +205,14 @@ const ProfilePage = () => {
                 className="photo-preview"
               />
             ) : (
-              <div className="photo-placeholder">Upload Photo</div>
+              <div className="photo-placeholder">Fotoğraf Yükle</div>
             )}
           </label>
         </div>
       </div>
 
       <div className="profile-submit-button">
-        <button type="submit">Save</button>
+        <button type="submit">Kaydet</button>
       </div>
     </form>
   );
