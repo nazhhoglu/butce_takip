@@ -1,100 +1,84 @@
-import { Badge, Calendar } from "antd";
-import React from "react";
-const getListData = (value) => {
-  let listData;
-  switch (value.date()) {
-    case 8:
-      listData = [
+import React, { useState, useEffect } from "react";
+import { Badge, Calendar, message } from "antd";
+import moment from "moment";
+
+const CalendarPage = ({ email }) => {
+  const [spendingData, setSpendingData] = useState({});
+
+  useEffect(() => {
+    if (email) {
+      fetchData(email);
+    } else {
+      message.error("Geçerli bir e-posta adresi bulunamadı.");
+    }
+  }, [email]);
+
+  const fetchData = async (email) => {
+    try {
+      const response = await fetch(
+        `https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1&email=${email}`,
         {
-          type: "warning",
-          content: "This is warning event.",
-        },
-        {
-          type: "success",
-          content: "This is usual event.",
-        },
-      ];
-      break;
-    case 10:
-      listData = [
-        {
-          type: "warning",
-          content: "This is warning event.",
-        },
-        {
-          type: "success",
-          content: "This is usual event.",
-        },
-        {
-          type: "error",
-          content: "This is error event.",
-        },
-      ];
-      break;
-    case 15:
-      listData = [
-        {
-          type: "warning",
-          content: "This is warning event",
-        },
-        {
-          type: "success",
-          content: "This is very long usual event。。....",
-        },
-        {
-          type: "error",
-          content: "This is error event 1.",
-        },
-        {
-          type: "error",
-          content: "This is error event 2.",
-        },
-        {
-          type: "error",
-          content: "This is error event 3.",
-        },
-        {
-          type: "error",
-          content: "This is error event 4.",
-        },
-      ];
-      break;
-    default:
-  }
-  return listData || [];
-};
-const getMonthData = (value) => {
-  if (value.month() === 8) {
-    return 1394;
-  }
-};
-const CalendarPage = () => {
-  const monthCellRender = (value) => {
-    const num = getMonthData(value);
-    return num ? (
-      <div className="notes-month">
-        <section>{num}</section>
-        <span>Backlog number</span>
-      </div>
-    ) : null;
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Fetched spending data:", result.data);
+
+        const formattedData = {};
+        result.data.forEach((item) => {
+          const date = moment(item.calendar_date, "DD.MM.YYYY").format(
+            "YYYY-MM-DD"
+          );
+          if (!formattedData[date]) {
+            formattedData[date] = [];
+          }
+          formattedData[date].push({
+            type: item.type,
+            amount: item.amount,
+            description: item.description,
+          });
+        });
+        console.log("Formatted spending data:", formattedData);
+        setSpendingData(formattedData);
+      } else {
+        message.error("Veriler getirilemedi.");
+      }
+    } catch (error) {
+      console.error("Error fetching spending data:", error);
+      message.error("Veriler getirilemedi.");
+    }
   };
+
+  useEffect(() => {
+    fetchData(email); // İlk yüklemede ve email prop'u değiştiğinde fetchData çağrılacak
+  }, [email]);
+
+  const getListData = (value) => {
+    const date = value.format("YYYY-MM-DD");
+    return spendingData[date] || [];
+  };
+
   const dateCellRender = (value) => {
     const listData = getListData(value);
     return (
       <ul className="events">
-        {listData.map((item) => (
-          <li key={item.content}>
-            <Badge status={item.type} text={item.content} />
+        {listData.map((item, index) => (
+          <li key={index}>
+            <Badge
+              status="warning"
+              text={`${item.type}: ${item.amount} (${item.description})`}
+            />
           </li>
         ))}
       </ul>
     );
   };
-  return (
-    <Calendar
-      dateCellRender={dateCellRender}
-      monthCellRender={monthCellRender}
-    />
-  );
+
+  return <Calendar dateCellRender={dateCellRender} />;
 };
+
 export default CalendarPage;

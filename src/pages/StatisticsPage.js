@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Table, Form, Input, Button, DatePicker, Select, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
+const date = moment();
 const { Option } = Select;
 
 const StatisticsPage = ({ email }) => {

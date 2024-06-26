@@ -109,7 +109,7 @@ const App = () => {
           path="/calendar"
           element={
             <AppLayout>
-              <CalendarPage />
+              <CalendarPage email={email} />
             </AppLayout>
           }
         />
