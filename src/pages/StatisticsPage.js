@@ -22,7 +22,7 @@ const StatisticsPage = ({ email }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://v1.nocodeapi.com/nazhhoglu/google_sheets/UwVbQyaVnoXrJYbw?tabId=Sayfa1",
+        "https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1",
         {
           method: "GET",
           headers: {
@@ -45,7 +45,7 @@ const StatisticsPage = ({ email }) => {
         type: row.type,
         date: row["calendar_date"],
         amount: row["amount"],
-        description: row["description"],
+        description: row.description,
       }));
       console.log("Formatted data:", formattedData);
       setData(formattedData);
@@ -58,13 +58,13 @@ const StatisticsPage = ({ email }) => {
 
   const onFinish = async (values) => {
     try {
-      const formattedDate = values.date.format("YYYY-MM-DD");
+      const formattedDate = values.date.format("DD.MM.YYYY");
       const newRow = [
         [email, values.type, formattedDate, values.amount, values.description],
       ];
 
       const response = await fetch(
-        "https://v1.nocodeapi.com/nazhhoglu/google_sheets/UwVbQyaVnoXrJYbw?tabId=Sayfa1",
+        "https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1",
         {
           method: "POST",
           headers: {
@@ -87,9 +87,16 @@ const StatisticsPage = ({ email }) => {
   };
 
   const deleteRecord = async (record) => {
+    console.log("Deleting record with id:", record.id + 1);
+    const url = `https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1&row_id=${
+      record.id + 1
+    }`;
+    console.log("Request URL:", url);
     try {
       const response = await fetch(
-        `https://v1.nocodeapi.com/nazhhoglu/google_sheets/UwVbQyaVnoXrJYbw?tabId=Sayfa1&row_id=${record.id}`,
+        `https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1&row_id=${
+          record.id + 1
+        }`,
         {
           method: "DELETE",
           headers: {
@@ -188,7 +195,7 @@ const StatisticsPage = ({ email }) => {
           <Input placeholder="Miktar" />
         </Form.Item>
         <Form.Item
-          name="desription"
+          name="description"
           rules={[{ required: true, message: "Açıklama gerekli" }]}
         >
           <Select placeholder="Açıklama">

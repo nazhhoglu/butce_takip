@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Layout, message } from "antd";
 import axios from "axios";
 import LoginRegisterPage from "./pages/LoginRegisterPage";
@@ -46,7 +41,7 @@ const App = () => {
 
   const handleLoginFinish = async (values, navigate) => {
     const endpointUrl =
-      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1";
+      "https://v1.nocodeapi.com/derinhho/google_sheets/eRbLYpdBAOJnqPVS?tabId=Sayfa1";
 
     try {
       const response = await axios.get(endpointUrl);
