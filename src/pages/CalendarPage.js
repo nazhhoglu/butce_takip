@@ -69,7 +69,7 @@ const CalendarPage = ({ email }) => {
         {listData.map((item, index) => (
           <li key={index}>
             <Badge
-              status="warning"
+              status={item.type === "Gelir" ? "success" : "error"}
               text={`${item.type}: ${item.amount} (${item.description})`}
             />
           </li>

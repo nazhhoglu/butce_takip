@@ -3,24 +3,30 @@ import { Table, Form, Input, Button, DatePicker, Select, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
-const date = moment();
 const { Option } = Select;
 
 const StatisticsPage = ({ email }) => {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [form] = Form.useForm();
+  const [filterType, setFilterType] = useState(undefined);
+  const [filterDate, setFilterDate] = useState(undefined);
+  const [filterDescription, setFilterDescription] = useState(undefined);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (email) {
-      fetchData(email);
+      fetchData();
     } else {
       navigate("/");
     }
   }, [email, navigate]);
 
-  const fetchData = async (email) => {
+  useEffect(() => {
+    applyFilters();
+  }, [data, filterType, filterDate, filterDescription]);
+
+  const fetchData = async () => {
     setLoading(true);
     try {
       const response = await fetch(
@@ -34,7 +40,6 @@ const StatisticsPage = ({ email }) => {
       );
       const result = await response.json();
       console.log("Fetched data:", result);
-      console.log("Email:", email);
 
       const filteredData = result.data.filter(
         (item) => item["email"] === email
@@ -51,6 +56,7 @@ const StatisticsPage = ({ email }) => {
       }));
       console.log("Formatted data:", formattedData);
       setData(formattedData);
+      setFilteredData(formattedData);
       setLoading(false);
     } catch (error) {
       message.error("Veriler getirilemedi.");
@@ -58,58 +64,21 @@ const StatisticsPage = ({ email }) => {
     }
   };
 
-  const onFinish = async (values) => {
-    try {
-      const formattedDate = values.date.format("DD.MM.YYYY");
-      const newRow = [
-        [email, values.type, formattedDate, values.amount, values.description],
-      ];
-
-      const response = await fetch(
-        "https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newRow),
-        }
-      );
-
-      if (response.ok) {
-        message.success("Kayıt eklendi.");
-        form.resetFields();
-        fetchData(email);
-      } else {
-        message.error("Kayıt eklenemedi.");
-      }
-    } catch (error) {
-      message.error("Kayıt eklenemedi.");
-    }
-  };
-
   const deleteRecord = async (record) => {
-    console.log("Deleting record with id:", record.id + 1);
-    const url = `https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1&row_id=${
-      record.id + 1
-    }`;
+    console.log("Deleting record with id:", record.id);
+    const url = `https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1&row_id=${record.id}`;
     console.log("Request URL:", url);
     try {
-      const response = await fetch(
-        `https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1&row_id=${
-          record.id + 1
-        }`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.ok) {
         message.success("Kayıt silindi.");
-        fetchData(email);
+        fetchData();
       } else {
         message.error("Kayıt silinemedi.");
       }
@@ -126,6 +95,31 @@ const StatisticsPage = ({ email }) => {
         "Rapor gönderilemedi, geçerli bir e-posta adresi bulunamadı."
       );
     }
+  };
+
+  const applyFilters = () => {
+    let filteredData = data.filter((item) => {
+      if (filterType && item.type.toString() !== filterType.toString())
+        return false;
+      if (filterDate && !moment(item.date).isSame(moment(filterDate), "day"))
+        return false;
+      if (
+        filterDescription &&
+        !item.description
+          .toLowerCase()
+          .includes(filterDescription.toLowerCase())
+      )
+        return false;
+      return true;
+    });
+    setFilteredData(filteredData);
+  };
+
+  const clearFilters = () => {
+    setFilterType(undefined);
+    setFilterDate(undefined);
+    setFilterDescription(undefined);
+    setFilteredData(data);
   };
 
   const columns = [
@@ -167,40 +161,33 @@ const StatisticsPage = ({ email }) => {
 
   return (
     <div>
-      <Form form={form} onFinish={onFinish} layout="inline">
-        <Form.Item
-          name="email"
-          initialValue={email}
-          rules={[{ required: true, message: "Email gerekli" }]}
-        >
-          <Input placeholder="Kullanıcı Email" disabled />
-        </Form.Item>
-        <Form.Item
-          name="type"
-          rules={[{ required: true, message: "Tür gerekli" }]}
-        >
-          <Select placeholder="Tür">
-            <Option value="Gelir">Gelir</Option>
-            <Option value="Gider">Gider</Option>
+      <Form layout="inline" style={{ marginBottom: 16 }}>
+        <Form.Item label="Tür">
+          <Select
+            style={{ width: 160 }}
+            onChange={(value) => setFilterType(value)}
+            value={filterType}
+            placeholder="Tür"
+          >
+            <Option value="1">Gelir</Option>
+            <Option value="2">Gider</Option>
           </Select>
         </Form.Item>
-        <Form.Item
-          name="date"
-          rules={[{ required: true, message: "Tarih gerekli" }]}
-        >
-          <DatePicker />
+        <Form.Item label="Tarih">
+          <DatePicker
+            style={{ width: 160 }}
+            onChange={(date) => setFilterDate(date)}
+            value={filterDate ? moment(filterDate) : undefined}
+            placeholder="Tarih"
+          />
         </Form.Item>
-        <Form.Item
-          name="amount"
-          rules={[{ required: true, message: "Miktar gerekli" }]}
-        >
-          <Input placeholder="Miktar" />
-        </Form.Item>
-        <Form.Item
-          name="description"
-          rules={[{ required: true, message: "Açıklama gerekli" }]}
-        >
-          <Select placeholder="Açıklama">
+        <Form.Item label="Açıklama">
+          <Select
+            style={{ width: 160 }}
+            onChange={(value) => setFilterDescription(value)}
+            value={filterDescription}
+            placeholder="Açıklama"
+          >
             <Option value="Eğitim">Eğitim</Option>
             <Option value="Kira">Kira</Option>
             <Option value="Fatura">Fatura</Option>
@@ -219,21 +206,26 @@ const StatisticsPage = ({ email }) => {
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Ekle
+          <Button type="primary" onClick={applyFilters}>
+            Filtrele
+          </Button>
+          <Button onClick={clearFilters} style={{ marginLeft: 8 }}>
+            Filtreyi Temizle
           </Button>
         </Form.Item>
       </Form>
-      <Button type="primary" onClick={sendReport} style={{ marginTop: "20px" }}>
-        Rapor Gönder
-      </Button>
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={filteredData}
         loading={loading}
         rowKey={(record) => record.id}
         style={{ marginTop: "20px" }}
       />
+      <div style={{ marginTop: "20px" }}>
+        <Button type="primary" onClick={sendReport}>
+          Rapor Al
+        </Button>
+      </div>
     </div>
   );
 };

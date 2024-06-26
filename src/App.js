@@ -85,7 +85,7 @@ const App = () => {
           path="/home"
           element={
             <AppLayout>
-              <HomePage />
+              <HomePage email={email} />
             </AppLayout>
           }
         />

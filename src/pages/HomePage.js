@@ -1,78 +1,99 @@
-import React, { useEffect } from "react";
-import { Pie } from "@antv/g2plot";
+import React from "react";
+import { Form, Input, Button, DatePicker, Select, message } from "antd";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
-const HomePage = () => {
-  useEffect(() => {
-    const data = [
-      { type: "分类一", value: 27 },
-      { type: "分类二", value: 25 },
-      { type: "分类三", value: 18 },
-      { type: "分类四", value: 15 },
-      { type: "分类五", value: 10 },
-      { type: "其他", value: 5 },
-    ];
+const { Option } = Select;
+const date = moment();
 
-    const piePlot = new Pie("container", {
-      appendPadding: 10,
-      data,
-      angleField: "value",
-      colorField: "type",
-      radius: 1,
-      innerRadius: 0.64,
-      meta: {
-        value: {
-          formatter: (v) => `¥ ${v}`,
-        },
-      },
-      label: {
-        type: "inner",
-        offset: "-50%",
-        autoRotate: false,
-        style: { textAlign: "center" },
-        formatter: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
-      },
-      statistic: {
-        title: {
-          offsetY: -8,
-        },
-        content: {
-          offsetY: -4,
-        },
-      },
-      interactions: [
-        { type: "element-selected" },
-        { type: "element-active" },
+const HomePage = ({ email }) => {
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+
+  const onFinish = async (values) => {
+    try {
+      const formattedDate = values.date.format("DD.MM.YYYY");
+      const newRow = [
+        [email, values.type, formattedDate, values.amount, values.description],
+      ];
+
+      const response = await fetch(
+        "https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1",
         {
-          type: "pie-statistic-active",
-          cfg: {
-            start: [
-              { trigger: "element:mouseenter", action: "pie-statistic:change" },
-              {
-                trigger: "legend-item:mouseenter",
-                action: "pie-statistic:change",
-              },
-            ],
-            end: [
-              { trigger: "element:mouseleave", action: "pie-statistic:reset" },
-              {
-                trigger: "legend-item:mouseleave",
-                action: "pie-statistic:reset",
-              },
-            ],
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        },
-      ],
-    });
+          body: JSON.stringify(newRow),
+        }
+      );
 
-    piePlot.render();
+      if (response.ok) {
+        message.success("Kayıt eklendi.");
+        form.resetFields();
+        // Burada gerekirse başka bir işlem yapabilirsiniz.
+      } else {
+        message.error("Kayıt eklenemedi.");
+      }
+    } catch (error) {
+      message.error("Kayıt eklenemedi.");
+    }
+  };
 
-    // Clean up the plot on component unmount
-    return () => {
-      piePlot.destroy();
-    };
-  }, []);
-
-  return <div id="container" style={{ width: "100%", height: "500px" }}></div>;
+  return (
+    <div>
+      <Form form={form} onFinish={onFinish} layout="inline">
+        <Form.Item
+          name="type"
+          rules={[{ required: true, message: "Tür gerekli" }]}
+        >
+          <Select placeholder="Tür">
+            <Option value="Gelir">Gelir</Option>
+            <Option value="Gider">Gider</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="date"
+          rules={[{ required: true, message: "Tarih gerekli" }]}
+        >
+          <DatePicker />
+        </Form.Item>
+        <Form.Item
+          name="amount"
+          rules={[{ required: true, message: "Miktar gerekli" }]}
+        >
+          <Input placeholder="Miktar" />
+        </Form.Item>
+        <Form.Item
+          name="description"
+          rules={[{ required: true, message: "Açıklama gerekli" }]}
+        >
+          <Select placeholder="Açıklama">
+            <Option value="Eğitim">Eğitim</Option>
+            <Option value="Kira">Kira</Option>
+            <Option value="Fatura">Fatura</Option>
+            <Option value="Yemek">Yemek</Option>
+            <Option value="Sağlık">Sağlık</Option>
+            <Option value="Spor">Spor</Option>
+            <Option value="Eğlence">Eğlence</Option>
+            <Option value="Alışveriş">Alışveriş</Option>
+            <Option value="Ulaşım">Ulaşım</Option>
+            <Option value="Kredi Kartı">Kredi Kartı</Option>
+            <Option value="Sigorta">Sigorta</Option>
+            <Option value="Maaş">Maaş</Option>
+            <Option value="Burs">Burs</Option>
+            <Option value="Kredi">Kredi</Option>
+            <Option value="Diğer">Diğer</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Ekle
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
 };
 
 export default HomePage;
