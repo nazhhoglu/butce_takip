@@ -41,7 +41,7 @@ const App = () => {
 
   const handleLoginFinish = async (values, navigate) => {
     const endpointUrl =
-      "https://v1.nocodeapi.com/derinhho/google_sheets/eRbLYpdBAOJnqPVS?tabId=Sayfa1";
+      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1";
 
     try {
       const response = await axios.get(endpointUrl);

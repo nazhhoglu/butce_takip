@@ -30,7 +30,7 @@ const StatisticsPage = ({ email }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://api.sheety.co/12633c0a2f77566ce99c18744caec515/incomeExpense/sayfa1",
+        "https://v1.nocodeapi.com/nazhhoglu/google_sheets/UwVbQyaVnoXrJYbw?tabId=Sayfa1",
         {
           method: "GET",
           headers: {
@@ -66,7 +66,7 @@ const StatisticsPage = ({ email }) => {
 
   const deleteRecord = async (record) => {
     console.log("Deleting record with id:", record.id);
-    const url = `https://api.sheety.co/12633c0a2f77566ce99c18744caec515/incomeExpense/sayfa1/${
+    const url = `https://v1.nocodeapi.com/nazhhoglu/google_sheets/UwVbQyaVnoXrJYbw?tabId=Sayfa1/${
       record.id + 1
     }`;
     console.log("Request URL:", url);

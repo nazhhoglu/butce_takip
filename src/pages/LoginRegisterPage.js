@@ -18,7 +18,7 @@ const LoginRegisterPage = ({ onLoginFinish }) => {
   const checkDuplicateEmail = async (email) => {
     try {
       const response = await axios.get(
-        "https://v1.nocodeapi.com/derinhho/google_sheets/eRbLYpdBAOJnqPVS?tabId=Sayfa1"
+        "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1"
       );
       const users = response.data.data;
 
@@ -43,7 +43,7 @@ const LoginRegisterPage = ({ onLoginFinish }) => {
       }
 
       const response = await fetch(
-        "https://v1.nocodeapi.com/derinhho/google_sheets/eRbLYpdBAOJnqPVS?tabId=Sayfa1",
+        "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1",
         {
           method: "POST",
           headers: {

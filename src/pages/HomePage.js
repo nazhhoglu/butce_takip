@@ -18,7 +18,7 @@ const HomePage = ({ email }) => {
       ];
 
       const response = await fetch(
-        "https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1",
+        "https://v1.nocodeapi.com/nazhhoglu/google_sheets/UwVbQyaVnoXrJYbw?tabId=Sayfa1",
         {
           method: "POST",
           headers: {
