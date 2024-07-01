@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Form, Input, Button, DatePicker, Select, message } from "antd";
+import { Table, Form, DatePicker, Select, message, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
@@ -30,7 +30,7 @@ const StatisticsPage = ({ email }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1",
+        "https://api.sheety.co/12633c0a2f77566ce99c18744caec515/incomeExpense/sayfa1",
         {
           method: "GET",
           headers: {
@@ -66,7 +66,9 @@ const StatisticsPage = ({ email }) => {
 
   const deleteRecord = async (record) => {
     console.log("Deleting record with id:", record.id);
-    const url = `https://v1.nocodeapi.com/derinhho/google_sheets/uwqwOcwWOTlHwVVM?tabId=Sayfa1&row_id=${record.id}`;
+    const url = `https://api.sheety.co/12633c0a2f77566ce99c18744caec515/incomeExpense/sayfa1/${
+      record.id + 1
+    }`;
     console.log("Request URL:", url);
     try {
       const response = await fetch(url, {
@@ -99,18 +101,19 @@ const StatisticsPage = ({ email }) => {
 
   const applyFilters = () => {
     let filteredData = data.filter((item) => {
-      if (filterType && item.type.toString() !== filterType.toString())
-        return false;
-      if (filterDate && !moment(item.date).isSame(moment(filterDate), "day"))
-        return false;
-      if (
-        filterDescription &&
-        !item.description
-          .toLowerCase()
-          .includes(filterDescription.toLowerCase())
-      )
-        return false;
-      return true;
+      const matchesType = filterType
+        ? item.type.toString() === filterType.toString()
+        : true;
+      const matchesDate = filterDate
+        ? moment(item.date).isSame(moment(filterDate), "day")
+        : true;
+      const matchesDescription = filterDescription
+        ? item.description
+            .toLowerCase()
+            .includes(filterDescription.toLowerCase())
+        : true;
+
+      return matchesType && matchesDate && matchesDescription;
     });
     setFilteredData(filteredData);
   };
@@ -169,8 +172,8 @@ const StatisticsPage = ({ email }) => {
             value={filterType}
             placeholder="Tür"
           >
-            <Option value="1">Gelir</Option>
-            <Option value="2">Gider</Option>
+            <Option value="Gelir">Gelir</Option>
+            <Option value="Gider">Gider</Option>
           </Select>
         </Form.Item>
         <Form.Item label="Tarih">
@@ -206,9 +209,6 @@ const StatisticsPage = ({ email }) => {
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" onClick={applyFilters}>
-            Filtrele
-          </Button>
           <Button onClick={clearFilters} style={{ marginLeft: 8 }}>
             Filtreyi Temizle
           </Button>

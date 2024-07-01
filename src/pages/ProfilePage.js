@@ -36,7 +36,12 @@ const ProfilePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Form doğrulama
-    if (!profile.firstName || !profile.lastName || !profile.email || !profile.password) {
+    if (
+      !profile.firstName ||
+      !profile.lastName ||
+      !profile.email ||
+      !profile.password
+    ) {
       alert("Lütfen tüm alanları doldurun.");
       return;
     }
@@ -46,7 +51,8 @@ const ProfilePage = () => {
 
   return (
     <form className="profile-page-form" onSubmit={handleSubmit}>
-      {/* Ad ve Soyad Alanları */}
+      <h2>Profil Sayfası</h2>
+
       <div className="profile-input-pair">
         <div className="profile-floating-label">
           <label>Ad</label>
@@ -70,7 +76,6 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      {/* Ülke ve Telefon Alanları */}
       <div className="profile-input-pair">
         <div className="profile-floating-label">
           <label>Ülke/Bölge</label>
@@ -83,7 +88,6 @@ const ProfilePage = () => {
             <option value="USA">ABD</option>
             <option value="Canada">Kanada</option>
             <option value="Turkey">Türkiye</option>
-            {/* Diğer ülkeler eklenebilir */}
           </select>
         </div>
         <div className="profile-floating-label">
@@ -98,7 +102,6 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      {/* E-posta ve Şifre Alanları */}
       <div className="profile-input-pair">
         <div className="profile-floating-label">
           <label>E-posta</label>
@@ -122,71 +125,76 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      {/* Cinsiyet Seçimi */}
       <div className="profile-form-group">
-        <label>Cinsiyet</label>
-        <div className="profile-gender-options">
-          <input
-            type="radio"
-            name="gender"
-            value="Woman"
-            checked={profile.gender === "Woman"}
-            onChange={handleChange}
-          />{" "}
-          Kadın
-          <input
-            type="radio"
-            name="gender"
-            value="Man"
-            checked={profile.gender === "Man"}
-            onChange={handleChange}
-          />{" "}
-          Erkek
+        <div className="profile-floating-label">
+          <label>Cinsiyet</label>
+          <div className="profile-gender-options">
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="Woman"
+                checked={profile.gender === "Woman"}
+                onChange={handleChange}
+              />{" "}
+              Kadın
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="Man"
+                checked={profile.gender === "Man"}
+                onChange={handleChange}
+              />{" "}
+              Erkek
+            </label>
+          </div>
         </div>
       </div>
 
-      {/* Doğum Tarihi Alanları */}
       <div className="profile-form-group">
-        <label>Doğum Tarihi</label>
-        <div className="profile-dob-options">
-          <input
-            type="number"
-            name="birthYear"
-            value={profile.birthYear}
-            onChange={handleChange}
-            min="1900"
-            max="2024"
-          />
-          <select
-            name="birthMonth"
-            value={profile.birthMonth}
-            onChange={handleChange}
-          >
-            <option value="January">Ocak</option>
-            <option value="February">Şubat</option>
-            <option value="March">Mart</option>
-            <option value="April">Nisan</option>
-            <option value="May">Mayıs</option>
-            <option value="June">Haziran</option>
-            <option value="July">Temmuz</option>
-            <option value="August">Ağustos</option>
-            <option value="September">Eylül</option>
-            <option value="October">Ekim</option>
-            <option value="November">Kasım</option>
-            <option value="December">Aralık</option>
-          </select>
-          <input
-            type="number"
-            name="birthDay"
-            value={profile.birthDay}
-            onChange={handleChange}
-            min="1"
-            max="31"
-          />
+        <div className="profile-floating-label">
+          <label>Doğum Tarihi</label>
+          <div className="profile-dob-options">
+            <input
+              type="number"
+              name="birthYear"
+              value={profile.birthYear}
+              onChange={handleChange}
+              min="1900"
+              max="2024"
+            />
+            <select
+              name="birthMonth"
+              value={profile.birthMonth}
+              onChange={handleChange}
+            >
+              <option value="January">Ocak</option>
+              <option value="February">Şubat</option>
+              <option value="March">Mart</option>
+              <option value="April">Nisan</option>
+              <option value="May">Mayıs</option>
+              <option value="June">Haziran</option>
+              <option value="July">Temmuz</option>
+              <option value="August">Ağustos</option>
+              <option value="September">Eylül</option>
+              <option value="October">Ekim</option>
+              <option value="November">Kasım</option>
+              <option value="December">Aralık</option>
+            </select>
+            <input
+              type="number"
+              name="birthDay"
+              value={profile.birthDay}
+              onChange={handleChange}
+              min="1"
+              max="31"
+            />
+          </div>
         </div>
       </div>
 
-      {/* Fotoğraf Yükleme */}
       <div className="profile-form-group">
         <label>Fotoğraf</label>
         <div className="photo-upload">

@@ -7,9 +7,6 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
-  height:750px;
-  margin-top:25px;
-  margin-left: 100px;
 }
 
 /* Form başlığı */
@@ -44,45 +41,46 @@
   border-radius: 8px;
   font-size: 16px;
   box-sizing: border-box;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
 
-/* Cinsiyet seçenekleri */
+/* Cinsiyet ve doğum tarihi grupları */
 .profile-form-group {
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
   margin-bottom: 20px;
+}
+
+.profile-form-group label {
+  font-weight: bold;
+  color: #555;
 }
 
 .profile-gender-options {
   display: flex;
-  gap: 50px;
+  gap: 10px;
   align-items: center;
   font-size: 16px;
-  margin-top: 20px;
-  margin-left:10px;
 }
+
+.profile-gender-options label {
+  display: flex;
+  align-items: center;
+}
+
 .profile-gender-options input[type="radio"] {
   -webkit-appearance: none;
-  width: 20px; /* Boyut */
-  height: 20px; /* Boyut */
-  border: 2px solid rgb(69, 124, 146); /* Kenar rengi */
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgb(69, 124, 146);
   border-radius: 50%;
   cursor: pointer;
-  margin-right: -30px;
-  position: relative;
+  margin-right: 5px;
 }
 
 .profile-gender-options input[type="radio"]:checked {
-  background-color: rgb(69, 124, 146); /* İç dolgu rengi */
-  border-color: rgb(69, 124, 146); /* Kenar rengi */
-}
-
-.profile-gender-options input[type="radio"]:checked::before {
-  width: 10px; /* İç dolgu boyutu */
-  height: 10px; /* İç dolgu boyutu */
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  background-color: rgb(69, 124, 146);
 }
 
 /* Doğum Tarihi alanları */
@@ -90,11 +88,6 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  margin-left: 300px;
-  margin-top: -20px; /* doğum tarihi alanlarını yukarı kaydır */
-  align-items: center;
-  justify-content: flex-end; /* Metinleri sağa hizalama */
-  
 }
 
 /* Fotoğraf yükleme */
@@ -129,6 +122,7 @@
 /* Gönder butonu */
 .profile-submit-button {
   text-align: center;
+  margin-top: 20px;
 }
 
 .profile-submit-button button {
@@ -141,8 +135,6 @@
   font-size: 18px;
   transition: background-color 0.3s;
   width: 150px;
-  margin-top: 130px;
-  margin-left: 450px;
 }
 
 .profile-submit-button button:hover {
