@@ -53,27 +53,24 @@ const CalendarPage = ({ email }) => {
     }
   };
 
-  useEffect(() => {
-    fetchData(email); // İlk yüklemede ve email prop'u değiştiğinde fetchData çağrılacak
-  }, [email]);
-
   const getListData = (value) => {
     const date = value.format("YYYY-MM-DD");
-    return spendingData[date] || [];
+    return spendingData[date] || null;
   };
 
   const dateCellRender = (value) => {
     const listData = getListData(value);
     return (
       <ul className="events">
-        {listData.map((item, index) => (
-          <li key={index}>
-            <Badge
-              status={item.type === "Gelir" ? "success" : "error"}
-              text={`${item.type}: ${item.amount} (${item.description})`}
-            />
-          </li>
-        ))}
+        {listData &&
+          listData.map((item, index) => (
+            <li key={index}>
+              <Badge
+                status={item.type === "Gelir" ? "success" : "error"}
+                text={`${item.type}: ${item.amount} (${item.description})`}
+              />
+            </li>
+          ))}
       </ul>
     );
   };

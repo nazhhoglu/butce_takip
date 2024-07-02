@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Table, Form, DatePicker, Select, message, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import "moment/locale/tr"; // Türkçe locale ekleyin
+moment.locale("tr"); // Türkçe locale'ı aktif edin
 
 const { Option } = Select;
 
@@ -180,7 +182,8 @@ const StatisticsPage = ({ email }) => {
           <DatePicker
             style={{ width: 160 }}
             onChange={(date) => setFilterDate(date)}
-            value={filterDate ? moment(filterDate) : undefined}
+            value={filterDate ? moment(filterDate, "DD.MM.YYYY") : undefined}
+            format="DD.MM.YYYY"
             placeholder="Tarih"
           />
         </Form.Item>
