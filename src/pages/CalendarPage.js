@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Badge, Calendar, message } from "antd";
+import { Badge, Calendar, message, Spin } from "antd";
 import moment from "moment";
 
 const CalendarPage = ({ email }) => {
   const [spendingData, setSpendingData] = useState({});
   const [yearlyData, setYearlyData] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (email) {
@@ -26,12 +27,15 @@ const CalendarPage = ({ email }) => {
       if (!yearly[year][month]) {
         yearly[year][month] = [];
       }
-      yearly[year][month].push(...spendingData[date]);
+      yearly[year][month].push(
+        ...spendingData[date].filter((item) => item.email === email)
+      );
     });
     setYearlyData(yearly);
-  }, [spendingData]);
+  }, [spendingData, email]);
 
   const fetchData = async (email) => {
+    setLoading(true);
     try {
       const response = await fetch(
         `https://v1.nocodeapi.com/nazhhoglu/google_sheets/UwVbQyaVnoXrJYbw?tabId=Sayfa1&email=${email}`,
@@ -58,6 +62,7 @@ const CalendarPage = ({ email }) => {
             type: item.type,
             amount: item.amount,
             description: item.description,
+            email: item.email, // E-posta adresini kaydet
           });
         });
         console.log("Formatted spending data:", formattedData);
@@ -68,28 +73,29 @@ const CalendarPage = ({ email }) => {
     } catch (error) {
       console.error("Error fetching spending data:", error);
       message.error("Veriler getirilemedi.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const getListData = (value) => {
     const date = value.format("YYYY-MM-DD");
-    return spendingData[date] || null;
+    return spendingData[date]?.filter((item) => item.email === email) || null;
   };
 
   const dateCellRender = (value) => {
     const listData = getListData(value);
     return (
-      <ul className="events">
+      <div className="events">
         {listData &&
           listData.map((item, index) => (
-            <li key={index}>
-              <Badge
-                status={item.type === "Gelir" ? "success" : "error"}
-                text={`${item.type}: ${item.amount} (${item.description})`}
-              />
-            </li>
+            <Badge
+              key={index}
+              status={item.type === "Gelir" ? "success" : "error"}
+              text={`${item.type}: ${item.amount} (${item.description})`}
+            />
           ))}
-      </ul>
+      </div>
     );
   };
 
@@ -118,11 +124,23 @@ const CalendarPage = ({ email }) => {
   };
 
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <Calendar
         dateCellRender={dateCellRender}
         monthCellRender={monthCellRender}
       />
+      {loading && (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <Spin size="large" />
+        </div>
+      )}
     </div>
   );
 };
