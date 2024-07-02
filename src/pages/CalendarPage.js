@@ -4,6 +4,7 @@ import moment from "moment";
 
 const CalendarPage = ({ email }) => {
   const [spendingData, setSpendingData] = useState({});
+  const [yearlyData, setYearlyData] = useState({});
 
   useEffect(() => {
     if (email) {
@@ -12,6 +13,23 @@ const CalendarPage = ({ email }) => {
       message.error("Geçerli bir e-posta adresi bulunamadı.");
     }
   }, [email]);
+
+  useEffect(() => {
+    // Yearly data aggregation
+    const yearly = {};
+    Object.keys(spendingData).forEach((date) => {
+      const year = moment(date).format("YYYY");
+      if (!yearly[year]) {
+        yearly[year] = {};
+      }
+      const month = moment(date).format("MMMM");
+      if (!yearly[year][month]) {
+        yearly[year][month] = [];
+      }
+      yearly[year][month].push(...spendingData[date]);
+    });
+    setYearlyData(yearly);
+  }, [spendingData]);
 
   const fetchData = async (email) => {
     try {
@@ -75,7 +93,38 @@ const CalendarPage = ({ email }) => {
     );
   };
 
-  return <Calendar dateCellRender={dateCellRender} />;
+  const monthCellRender = (value) => {
+    const year = value.format("YYYY");
+    const month = value.format("MMMM");
+    const data = yearlyData[year]?.[month];
+
+    return (
+      <div className="notes-month">
+        <section>{month}</section>
+        {data && (
+          <ul className="events">
+            {data.map((item, index) => (
+              <li key={index}>
+                <Badge
+                  status={item.type === "Gelir" ? "success" : "error"}
+                  text={`${item.type}: ${item.amount} (${item.description})`}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <div>
+      <Calendar
+        dateCellRender={dateCellRender}
+        monthCellRender={monthCellRender}
+      />
+    </div>
+  );
 };
 
 export default CalendarPage;

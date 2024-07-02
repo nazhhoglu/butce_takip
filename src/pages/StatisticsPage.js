@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Table, Form, DatePicker, Select, message, Button } from "antd";
+import {
+  Table,
+  Form,
+  DatePicker,
+  Select,
+  message,
+  Button,
+  Row,
+  Col,
+} from "antd";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/tr"; // Türkçe locale ekleyin
@@ -52,7 +61,7 @@ const StatisticsPage = ({ email }) => {
         id: index + 1,
         email: row["email"],
         type: row.type,
-        date: row["calendar_date"],
+        date: moment(row["calendar_date"], "DD.MM.YYYY").format("YYYY-MM-DD"), // Tarih formatını güncelleyerek YYYY-MM-DD formatına dönüştür
         amount: row["amount"],
         description: row.description,
       }));
@@ -67,8 +76,8 @@ const StatisticsPage = ({ email }) => {
   };
 
   const deleteRecord = async (record) => {
-    console.log("Deleting record with id:", record.id);
-    const url = `https://v1.nocodeapi.com/nazhhoglu/google_sheets/UwVbQyaVnoXrJYbw?tabId=Sayfa1/${
+    console.log("Deleting record with id:", record.id + 1);
+    const url = `https://v1.nocodeapi.com/nazhhoglu/google_sheets/UwVbQyaVnoXrJYbw?tabId=Sayfa1&row_id=${
       record.id + 1
     }`;
     console.log("Request URL:", url);
@@ -107,7 +116,7 @@ const StatisticsPage = ({ email }) => {
         ? item.type.toString() === filterType.toString()
         : true;
       const matchesDate = filterDate
-        ? moment(item.date).isSame(moment(filterDate), "day")
+        ? moment(item.date, "YYYY-MM-DD").isSame(moment(filterDate), "day")
         : true;
       const matchesDescription = filterDescription
         ? item.description
@@ -142,6 +151,7 @@ const StatisticsPage = ({ email }) => {
       title: "Tarih",
       dataIndex: "date",
       key: "date",
+      render: (text) => moment(text, "YYYY-MM-DD").format("DD.MM.YYYY"),
     },
     {
       title: "Miktar",
@@ -166,57 +176,68 @@ const StatisticsPage = ({ email }) => {
 
   return (
     <div>
-      <Form layout="inline" style={{ marginBottom: 16 }}>
-        <Form.Item label="Tür">
-          <Select
-            style={{ width: 160 }}
-            onChange={(value) => setFilterType(value)}
-            value={filterType}
-            placeholder="Tür"
-          >
-            <Option value="Gelir">Gelir</Option>
-            <Option value="Gider">Gider</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item label="Tarih">
-          <DatePicker
-            style={{ width: 160 }}
-            onChange={(date) => setFilterDate(date)}
-            value={filterDate ? moment(filterDate, "DD.MM.YYYY") : undefined}
-            format="DD.MM.YYYY"
-            placeholder="Tarih"
-          />
-        </Form.Item>
-        <Form.Item label="Açıklama">
-          <Select
-            style={{ width: 160 }}
-            onChange={(value) => setFilterDescription(value)}
-            value={filterDescription}
-            placeholder="Açıklama"
-          >
-            <Option value="Eğitim">Eğitim</Option>
-            <Option value="Kira">Kira</Option>
-            <Option value="Fatura">Fatura</Option>
-            <Option value="Yemek">Yemek</Option>
-            <Option value="Sağlık">Sağlık</Option>
-            <Option value="Spor">Spor</Option>
-            <Option value="Eğlence">Eğlence</Option>
-            <Option value="Alışveriş">Alışveriş</Option>
-            <Option value="Ulaşım">Ulaşım</Option>
-            <Option value="Kredi Kartı">Kredi Kartı</Option>
-            <Option value="Sigorta">Sigorta</Option>
-            <Option value="Maaş">Maaş</Option>
-            <Option value="Burs">Burs</Option>
-            <Option value="Kredi">Kredi</Option>
-            <Option value="Diğer">Diğer</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item>
-          <Button onClick={clearFilters} style={{ marginLeft: 8 }}>
-            Filtreyi Temizle
+      <Row justify="space-between" style={{ marginBottom: 16 }}>
+        <Col>
+          <Form layout="inline">
+            <Form.Item label="Tür">
+              <Select
+                style={{ width: 160 }}
+                onChange={(value) => setFilterType(value)}
+                value={filterType}
+                placeholder="Tür"
+              >
+                <Option value="Gelir">Gelir</Option>
+                <Option value="Gider">Gider</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item label="Tarih">
+              <DatePicker
+                style={{ width: 160 }}
+                onChange={(date) => setFilterDate(date)}
+                value={
+                  filterDate ? moment(filterDate, "DD.MM.YYYY") : undefined
+                }
+                format="DD.MM.YYYY"
+                placeholder="Tarih"
+              />
+            </Form.Item>
+            <Form.Item label="Açıklama">
+              <Select
+                style={{ width: 160 }}
+                onChange={(value) => setFilterDescription(value)}
+                value={filterDescription}
+                placeholder="Açıklama"
+              >
+                <Option value="Eğitim">Eğitim</Option>
+                <Option value="Kira">Kira</Option>
+                <Option value="Fatura">Fatura</Option>
+                <Option value="Yemek">Yemek</Option>
+                <Option value="Sağlık">Sağlık</Option>
+                <Option value="Spor">Spor</Option>
+                <Option value="Eğlence">Eğlence</Option>
+                <Option value="Alışveriş">Alışveriş</Option>
+                <Option value="Ulaşım">Ulaşım</Option>
+                <Option value="Kredi Kartı">Kredi Kartı</Option>
+                <Option value="Sigorta">Sigorta</Option>
+                <Option value="Maaş">Maaş</Option>
+                <Option value="Burs">Burs</Option>
+                <Option value="Kredi">Kredi</Option>
+                <Option value="Diğer">Diğer</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item>
+              <Button onClick={clearFilters} style={{ marginLeft: 8 }}>
+                Filtreyi Temizle
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+        <Col>
+          <Button type="primary" onClick={sendReport}>
+            Rapor Al
           </Button>
-        </Form.Item>
-      </Form>
+        </Col>
+      </Row>
       <Table
         columns={columns}
         dataSource={filteredData}
@@ -224,11 +245,6 @@ const StatisticsPage = ({ email }) => {
         rowKey={(record) => record.id}
         style={{ marginTop: "20px" }}
       />
-      <div style={{ marginTop: "20px" }}>
-        <Button type="primary" onClick={sendReport}>
-          Rapor Al
-        </Button>
-      </div>
     </div>
   );
 };
