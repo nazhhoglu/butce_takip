@@ -51,8 +51,6 @@ const ProfilePage = () => {
 
   return (
     <form className="profile-page-form" onSubmit={handleSubmit}>
-      <h2>Profil Sayfası</h2>
-
       <div className="profile-input-pair">
         <div className="profile-floating-label">
           <label>Ad</label>
@@ -88,6 +86,14 @@ const ProfilePage = () => {
             <option value="USA">ABD</option>
             <option value="Canada">Kanada</option>
             <option value="Turkey">Türkiye</option>
+            <option value="Germany">Almanya</option>
+            <option value="France">Fransa</option>
+            <option value="Italy">İtalya</option>
+            <option value="China">Çin</option>
+            <option value="Japan">Japonya</option>
+            <option value="Brazil">Brezilya</option>
+            <option value="India">Hindistan</option>
+            <option value="Australia">Avustralya</option>
           </select>
         </div>
         <div className="profile-floating-label">

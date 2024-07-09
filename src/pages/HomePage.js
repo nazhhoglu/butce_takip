@@ -2,6 +2,9 @@ import React from "react";
 import { Form, Input, Button, DatePicker, Select, message } from "antd";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import BalanceChart from "../components/BalanceChart";
+import CategoryCharts from "../components/CategoryCharts"; // Yeni bileşeni içe aktarın
+import MonthlyChart from "../components/MonthlyChart";
 
 const { Option } = Select;
 const date = moment();
@@ -31,7 +34,6 @@ const HomePage = ({ email }) => {
       if (response.ok) {
         message.success("Kayıt eklendi.");
         form.resetFields();
-        // Burada gerekirse başka bir işlem yapabilirsiniz.
       } else {
         message.error("Kayıt eklenemedi.");
       }
@@ -42,8 +44,12 @@ const HomePage = ({ email }) => {
 
   return (
     <div>
+      <BalanceChart email={email} />
+      <CategoryCharts email={email} /> {/* CategoryCharts bileşenini ekleyin */}
+      <MonthlyChart email={email} />
       <Form form={form} onFinish={onFinish} layout="inline">
         <Form.Item
+          label="Tür"
           name="type"
           rules={[{ required: true, message: "Tür gerekli" }]}
         >
@@ -53,18 +59,21 @@ const HomePage = ({ email }) => {
           </Select>
         </Form.Item>
         <Form.Item
+          label="Tarih"
           name="date"
           rules={[{ required: true, message: "Tarih gerekli" }]}
         >
           <DatePicker />
         </Form.Item>
         <Form.Item
+          label="Miktar"
           name="amount"
           rules={[{ required: true, message: "Miktar gerekli" }]}
         >
           <Input placeholder="Miktar" />
         </Form.Item>
         <Form.Item
+          label="Açıklama"
           name="description"
           rules={[{ required: true, message: "Açıklama gerekli" }]}
         >

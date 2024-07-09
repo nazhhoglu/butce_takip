@@ -1,7 +1,7 @@
 /* Ana kap */
 .profile-page-form {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 700px;
+  margin-right: 0 auto;
   padding: 20px;
   background-color: #f5f5f5;
   border-radius: 8px;
@@ -9,12 +9,7 @@
   font-family: Arial, sans-serif;
 }
 
-/* Form başlığı */
-.profile-page-form h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
+
 
 /* Giriş alanları çiftler halinde */
 .profile-input-pair {
@@ -36,7 +31,7 @@
 
 .profile-floating-label input,
 .profile-floating-label select {
-  padding: 10px;
+  padding: 7px;
   border: 1px solid rgb(69, 124, 146);
   border-radius: 8px;
   font-size: 16px;

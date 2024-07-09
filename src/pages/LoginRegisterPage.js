@@ -56,7 +56,9 @@ const LoginRegisterPage = ({ onLoginFinish }) => {
       );
       await response.json();
       message.success("Kayıt başarılı!");
-      navigate("/home");
+      message.info(
+        "Giriş kısmından, mail ve şifreniz ile sisteme giriş yapabilirsiniz."
+      );
     } catch (err) {
       console.error(err);
       message.error("Kayıt başarısız. Lütfen tekrar deneyin.");
