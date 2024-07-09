@@ -87,7 +87,7 @@ const BalanceChart = ({ email }) => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div style={{ width: "250px", height: "250px" }}>
+        <div style={{ width: "275px", height: "275px" }}>
           <Doughnut data={data} options={options} />
         </div>
       )}

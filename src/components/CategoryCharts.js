@@ -93,23 +93,27 @@ const CategoryCharts = ({ email }) => {
   };
 
   return (
-    <div>
-      <h2>Gelir Kategorileri</h2>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div style={{ width: "275px", height: "275px" }}>
-          <Pie data={incomeData} />
-        </div>
-      )}
-      <h2>Gider Kategorileri</h2>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div style={{ width: "250px", height: "250px" }}>
-          <Pie data={expenseData} />
-        </div>
-      )}
+    <div style={{ display: "flex", gap: "100px" }}>
+      <div>
+        <h2>Gelir Kategorileri</h2>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <div style={{ width: "275px", height: "275px" }}>
+            <Pie data={incomeData} />
+          </div>
+        )}
+      </div>
+      <div>
+        <h2>Gider Kategorileri</h2>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <div style={{ width: "275px", height: "275px" }}>
+            <Pie data={expenseData} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
