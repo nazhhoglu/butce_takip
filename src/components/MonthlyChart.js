@@ -1,3 +1,4 @@
+// MonthlyChart.js
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import {
@@ -190,7 +191,7 @@ const MonthlyChart = ({ email }) => {
       {isLoading ? (
         <Spin />
       ) : (
-        <div style={{ height: "300px" }}>
+        <div style={{ height: "400px", maxWidth: "800px" }}>
           <Bar data={data} options={options} />
         </div>
       )}

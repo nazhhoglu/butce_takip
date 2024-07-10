@@ -52,42 +52,53 @@ const CategoryCharts = ({ email }) => {
     fetchData();
   }, [email]);
 
-  const colors = [
-    "#36A2EB",
-    "#FF6384",
-    "#FFCE56",
-    "#4BC0C0",
-    "#9966FF",
-    "#FF9F40",
-    "#C9CBCF",
-    "#FF6B6B",
-    "#FFD166",
-    "#06D6A0",
-    "#118AB2",
-    "#073B4C",
-    "#EF476F",
-    "#F78C6B",
-    "#A8DADC",
-  ];
+  // Kategori renkleri
+  const categoryColors = {
+    Eğitim: "#36A2EB", // Mavi
+    Kira: "#FF6384", // Kırmızı
+    Fatura: "#FFCE56", // Sarı
+    Yemek: "#4BC0C0", // Turkuaz
+    Sağlık: "#9966FF", // Mor
+    Spor: "#FF9F40", // Portakal
+    Eğlence: "#C9CBCF", // Gri
+    Alışveriş: "#FF6B6B", // Açık Kırmızı
+    Ulaşım: "#FFD166", // Açık Sarı
+    "Kredi Kartı": "#06D6A0", // Yeşil
+    Sigorta: "#DDA0DD", // Orkide
+    Maaş: "#FF1493", // Derin pembe
+    Burs: "#8A2BE2", // Mavi menekşe
+    Kredi: "#228B22", // Orman yeşili
+    Diğer: "#808080", // Gümüş
+  };
 
+  // Gelir verileri
   const incomeData = {
     labels: Object.keys(incomeCategories),
     datasets: [
       {
         data: Object.values(incomeCategories),
-        backgroundColor: colors,
-        hoverBackgroundColor: colors,
+        backgroundColor: Object.keys(incomeCategories).map(
+          (category) => categoryColors[category]
+        ),
+        hoverBackgroundColor: Object.keys(incomeCategories).map(
+          (category) => categoryColors[category]
+        ),
       },
     ],
   };
 
+  // Gider verileri
   const expenseData = {
     labels: Object.keys(expenseCategories),
     datasets: [
       {
         data: Object.values(expenseCategories),
-        backgroundColor: colors,
-        hoverBackgroundColor: colors,
+        backgroundColor: Object.keys(expenseCategories).map(
+          (category) => categoryColors[category]
+        ),
+        hoverBackgroundColor: Object.keys(expenseCategories).map(
+          (category) => categoryColors[category]
+        ),
       },
     ],
   };

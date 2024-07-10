@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
@@ -16,6 +16,37 @@ const ProfilePage = () => {
     photo: null,
     photoURL: "",
   });
+
+  useEffect(() => {
+    // Kullanıcı bilgilerini almak için bir API çağrısı
+    fetch(
+      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1",
+      {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer your_token_here", // Gerekli yetkilendirme bilgilerini buraya ekleyin
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // API'den gelen kullanıcı bilgilerini state'e yerleştirin
+        setProfile({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          country: data.country,
+          telephone: data.telephone,
+          email: data.email,
+          password: data.password,
+          gender: data.gender,
+          birthYear: data.birthYear,
+          birthMonth: data.birthMonth,
+          birthDay: data.birthDay,
+          photoURL: data.photoURL,
+        });
+      })
+      .catch((error) => console.error("Error fetching user data:", error));
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,8 +76,25 @@ const ProfilePage = () => {
       alert("Lütfen tüm alanları doldurun.");
       return;
     }
-    console.log(profile);
-    // Burada form gönderimini gerçekleştirin
+
+    // Profil güncelleme işlemi için bir PUT isteği yapın
+    fetch(
+      "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer your_token_here", // Gerekli yetkilendirme bilgilerini buraya ekleyin
+        },
+        body: JSON.stringify(profile),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Profil güncellendi:", data);
+        // Başarı mesajı veya gerekli işlemleri burada yapabilirsiniz
+      })
+      .catch((error) => console.error("Error updating profile:", error));
   };
 
   return (
@@ -117,6 +165,7 @@ const ProfilePage = () => {
             value={profile.email}
             onChange={handleChange}
             placeholder="E-posta adresiniz"
+            readOnly // E-posta alanını sadece okunabilir yapabilirsiniz
           />
         </div>
         <div className="profile-floating-label">

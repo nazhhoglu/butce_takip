@@ -1,14 +1,6 @@
+// HomePage.js
 import React from "react";
-import {
-  Form,
-  Input,
-  Button,
-  DatePicker,
-  Select,
-  message,
-  Row,
-  Col,
-} from "antd";
+import { Form, Input, Button, DatePicker, Select, message } from "antd";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import BalanceChart from "../components/BalanceChart";
@@ -53,74 +45,68 @@ const HomePage = ({ email }) => {
 
   return (
     <div>
-      <div style={{ display: "flex", gap: "100px" }}>
+      <div style={{ display: "flex", gap: "100px", marginLeft: "50px" }}>
         <BalanceChart email={email} />
         <CategoryCharts email={email} />{" "}
         {/* CategoryCharts bileşenini ekleyin */}
       </div>
       <div style={{ display: "flex", gap: "100px", padding: "50px" }}>
-        <MonthlyChart email={email} />
-        <Form form={form} onFinish={onFinish}>
+        <div style={{ flex: 2, minWidth: "600px" }}>
+          <MonthlyChart email={email} />
+        </div>
+        <Form
+          form={form}
+          onFinish={onFinish}
+          style={{ flex: 1, minWidth: "300px" }}
+        >
           <h2>Gelir-Gider Ekleyiniz</h2>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                label="Tür"
-                name="type"
-                rules={[{ required: true, message: "Tür gerekli" }]}
-              >
-                <Select placeholder="Tür">
-                  <Option value="Gelir">Gelir</Option>
-                  <Option value="Gider">Gider</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                label="Tarih"
-                name="date"
-                rules={[{ required: true, message: "Tarih gerekli" }]}
-              >
-                <DatePicker style={{ width: "100%" }} />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                label="Miktar"
-                name="amount"
-                rules={[{ required: true, message: "Miktar gerekli" }]}
-              >
-                <Input placeholder="Miktar" />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                label="Açıklama"
-                name="description"
-                rules={[{ required: true, message: "Açıklama gerekli" }]}
-              >
-                <Select placeholder="Açıklama">
-                  <Option value="Eğitim">Eğitim</Option>
-                  <Option value="Kira">Kira</Option>
-                  <Option value="Fatura">Fatura</Option>
-                  <Option value="Yemek">Yemek</Option>
-                  <Option value="Sağlık">Sağlık</Option>
-                  <Option value="Spor">Spor</Option>
-                  <Option value="Eğlence">Eğlence</Option>
-                  <Option value="Alışveriş">Alışveriş</Option>
-                  <Option value="Ulaşım">Ulaşım</Option>
-                  <Option value="Kredi Kartı">Kredi Kartı</Option>
-                  <Option value="Sigorta">Sigorta</Option>
-                  <Option value="Maaş">Maaş</Option>
-                  <Option value="Burs">Burs</Option>
-                  <Option value="Kredi">Kredi</Option>
-                  <Option value="Diğer">Diğer</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
+          <Form.Item
+            label="Tür"
+            name="type"
+            rules={[{ required: true, message: "Tür gerekli" }]}
+          >
+            <Select placeholder="Tür">
+              <Option value="Gelir">Gelir</Option>
+              <Option value="Gider">Gider</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
+            label="Tarih"
+            name="date"
+            rules={[{ required: true, message: "Tarih gerekli" }]}
+          >
+            <DatePicker style={{ width: "100%" }} />
+          </Form.Item>
+          <Form.Item
+            label="Miktar"
+            name="amount"
+            rules={[{ required: true, message: "Miktar gerekli" }]}
+          >
+            <Input placeholder="Miktar" />
+          </Form.Item>
+          <Form.Item
+            label="Açıklama"
+            name="description"
+            rules={[{ required: true, message: "Açıklama gerekli" }]}
+          >
+            <Select placeholder="Açıklama">
+              <Option value="Eğitim">Eğitim</Option>
+              <Option value="Kira">Kira</Option>
+              <Option value="Fatura">Fatura</Option>
+              <Option value="Yemek">Yemek</Option>
+              <Option value="Sağlık">Sağlık</Option>
+              <Option value="Spor">Spor</Option>
+              <Option value="Eğlence">Eğlence</Option>
+              <Option value="Alışveriş">Alışveriş</Option>
+              <Option value="Ulaşım">Ulaşım</Option>
+              <Option value="Kredi Kartı">Kredi Kartı</Option>
+              <Option value="Sigorta">Sigorta</Option>
+              <Option value="Maaş">Maaş</Option>
+              <Option value="Burs">Burs</Option>
+              <Option value="Kredi">Kredi</Option>
+              <Option value="Diğer">Diğer</Option>
+            </Select>
+          </Form.Item>
           <Form.Item style={{ textAlign: "center" }}>
             <Button type="primary" htmlType="submit">
               Ekle
