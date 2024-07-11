@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Badge, Calendar, message, Spin } from "antd";
 import moment from "moment";
+import "moment/locale/tr"; // moment'ın Türkçe dil dosyasını içe aktarın
+import { ConfigProvider } from "antd";
+import trTR from "antd/es/locale/tr_TR"; // Ant Design Türkçe dil dosyasını içe aktarın
+
+// moment'ı Türkçe diline ayarlayın
+moment.locale("tr");
 
 const CalendarPage = ({ email }) => {
   const [spendingData, setSpendingData] = useState({});
@@ -124,24 +130,26 @@ const CalendarPage = ({ email }) => {
   };
 
   return (
-    <div style={{ position: "relative" }}>
-      <Calendar
-        dateCellRender={dateCellRender}
-        monthCellRender={monthCellRender}
-      />
-      {loading && (
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          <Spin size="large" />
-        </div>
-      )}
-    </div>
+    <ConfigProvider locale={trTR}>
+      <div style={{ position: "relative" }}>
+        <Calendar
+          dateCellRender={dateCellRender}
+          monthCellRender={monthCellRender}
+        />
+        {loading && (
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <Spin size="large" />
+          </div>
+        )}
+      </div>
+    </ConfigProvider>
   );
 };
 

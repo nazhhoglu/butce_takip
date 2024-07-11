@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./ResetPasswordPage.css";
+import { message } from "antd";
 
 function ResetPasswordPage() {
   const [email, setEmail] = useState("");
@@ -8,6 +9,7 @@ function ResetPasswordPage() {
     e.preventDefault();
     // Burada şifre sıfırlama işlemini başlatacak kodu ekleyeceksiniz
     console.log("Şifre sıfırlama isteği gönderildi:", email);
+    message.info("Şifre sıfırlama isteği gönderildi: " + email);
   };
 
   const handleCancel = () => {

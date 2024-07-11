@@ -17,28 +17,28 @@ moment.locale("tr"); // Türkçe locale'ı aktif edin
 const { Option } = Select;
 
 const StatisticsPage = ({ email }) => {
-  const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [filterType, setFilterType] = useState(undefined);
-  const [filterDate, setFilterDate] = useState(undefined);
-  const [filterDescription, setFilterDescription] = useState(undefined);
+  const [data, setData] = useState([]); // API'den çekilen veriler
+  const [filteredData, setFilteredData] = useState([]); // Filtrelenmiş veriler
+  const [loading, setLoading] = useState(false); // Yükleme durumu
+  const [filterType, setFilterType] = useState(undefined); // Tür filtresi
+  const [filterDate, setFilterDate] = useState(undefined); // Tarih filtresi
+  const [filterDescription, setFilterDescription] = useState(undefined); // Açıklama filtresi
   const navigate = useNavigate();
 
   useEffect(() => {
     if (email) {
-      fetchData();
+      fetchData(); // E-posta varsa verileri çek
     } else {
-      navigate("/");
+      navigate("/"); // E-posta yoksa anasayfaya yönlendir
     }
   }, [email, navigate]);
 
   useEffect(() => {
-    applyFilters();
+    applyFilters(); // Filtreler değiştiğinde filtreleri uygula
   }, [data, filterType, filterDate, filterDescription]);
 
   const fetchData = async () => {
-    setLoading(true);
+    setLoading(true); // Yükleme durumunu başlat
     try {
       const response = await fetch(
         "https://v1.nocodeapi.com/nazhhoglu/google_sheets/UwVbQyaVnoXrJYbw?tabId=Sayfa1",
@@ -52,11 +52,13 @@ const StatisticsPage = ({ email }) => {
       const result = await response.json();
       console.log("Fetched data:", result);
 
+      // API'den gelen verileri e-posta ile filtrele
       const filteredData = result.data.filter(
         (item) => item["email"] === email
       );
       console.log("Filtered data:", filteredData);
 
+      // Verileri formatla ve state'e kaydet
       const formattedData = filteredData.map((row, index) => ({
         id: index + 1,
         email: row["email"],
@@ -68,10 +70,10 @@ const StatisticsPage = ({ email }) => {
       console.log("Formatted data:", formattedData);
       setData(formattedData);
       setFilteredData(formattedData);
-      setLoading(false);
+      setLoading(false); // Yükleme durumunu bitir
     } catch (error) {
       message.error("Veriler getirilemedi.");
-      setLoading(false);
+      setLoading(false); // Yükleme durumunu bitir
     }
   };
 
@@ -91,7 +93,7 @@ const StatisticsPage = ({ email }) => {
 
       if (response.ok) {
         message.success("Kayıt silindi.");
-        fetchData();
+        fetchData(); // Silme işlemi başarılı olursa verileri yeniden çek
       } else {
         message.error("Kayıt silinemedi.");
       }
@@ -111,6 +113,7 @@ const StatisticsPage = ({ email }) => {
   };
 
   const applyFilters = () => {
+    // Verileri filtrele
     let filteredData = data.filter((item) => {
       const matchesType = filterType
         ? item.type.toString() === filterType.toString()
@@ -133,7 +136,7 @@ const StatisticsPage = ({ email }) => {
     setFilterType(undefined);
     setFilterDate(undefined);
     setFilterDescription(undefined);
-    setFilteredData(data);
+    setFilteredData(data); // Filtreleri temizleyip tüm verileri göster
   };
 
   const columns = [

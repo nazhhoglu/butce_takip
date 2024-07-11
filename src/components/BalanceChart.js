@@ -66,6 +66,11 @@ const BalanceChart = ({ email }) => {
     fetchData();
   }, [email]);
 
+  const balance = totalIncome - totalExpense;
+  const balanceColor = balance >= 0 ? "green" : "red";
+  const balanceText =
+    balance >= 0 ? `+${balance.toFixed(2)}` : balance.toFixed(2);
+
   const data = {
     labels: ["Gelir", "Gider"],
     datasets: [
@@ -79,6 +84,37 @@ const BalanceChart = ({ email }) => {
 
   const options = {
     maintainAspectRatio: false,
+    hover: {
+      mode: null,
+    },
+  };
+
+  const centerTextPlugin = {
+    id: "centerText",
+    beforeDraw: function (chart) {
+      const width = chart.width;
+      const height = chart.height;
+      const ctx = chart.ctx;
+
+      ctx.clearRect(0, 0, width, height); // Mevcut çizimi temizleyin
+
+      // Font boyutunu dinamik olarak ayarla
+      let fontSize = Math.min(
+        height / 114,
+        width / ctx.measureText(balanceText).width
+      );
+      fontSize = fontSize > 1 ? fontSize : 1; // Çok küçük font boyutlarını önlemek için alt sınır koy
+      ctx.font = `${fontSize}em sans-serif`;
+
+      const textWidth = ctx.measureText(balanceText).width;
+      ctx.textBaseline = "middle";
+
+      const textX = Math.round((width - textWidth) / 2);
+      const textY = height / 2;
+
+      ctx.fillStyle = balanceColor;
+      ctx.fillText(balanceText, textX, textY);
+    },
   };
 
   return (
@@ -88,7 +124,11 @@ const BalanceChart = ({ email }) => {
         <p>Loading...</p>
       ) : (
         <div style={{ width: "275px", height: "275px" }}>
-          <Doughnut data={data} options={options} />
+          <Doughnut
+            data={data}
+            options={options}
+            plugins={[centerTextPlugin]} // Sadece bu grafik için eklentiyi uygula
+          />
         </div>
       )}
     </div>

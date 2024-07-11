@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./ProfilePage.css";
+import { message } from "antd";
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState({
-    firstName: "",
-    lastName: "",
-    country: "Russia",
-    telephone: "",
+    name: "",
+    surname: "",
+
     email: "",
     password: "",
+    country: "Russia",
+    telephone: "",
     gender: "Woman",
     birthYear: "2000",
     birthMonth: "December",
@@ -18,7 +20,6 @@ const ProfilePage = () => {
   });
 
   useEffect(() => {
-    // Kullanıcı bilgilerini almak için bir API çağrısı
     fetch(
       "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1",
       {
@@ -30,19 +31,20 @@ const ProfilePage = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        // API'den gelen kullanıcı bilgilerini state'e yerleştirin
+        const user = data.data[0]; // Datanın formatına göre düzenleyin
         setProfile({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          country: data.country,
-          telephone: data.telephone,
-          email: data.email,
-          password: data.password,
-          gender: data.gender,
-          birthYear: data.birthYear,
-          birthMonth: data.birthMonth,
-          birthDay: data.birthDay,
-          photoURL: data.photoURL,
+          name: user.name || "",
+          surname: user.surname || "",
+          country: user.country || "Russia",
+          email: user.email || "",
+          password: user.password || "",
+          telephone: user.telephone || "",
+
+          gender: user.gender || "Woman",
+          birthYear: user.birthYear || "2000",
+          birthMonth: user.birthMonth || "December",
+          birthDay: user.birthDay || "01",
+          photoURL: user.photoURL || "",
         });
       })
       .catch((error) => console.error("Error fetching user data:", error));
@@ -66,10 +68,9 @@ const ProfilePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Form doğrulama
     if (
-      !profile.firstName ||
-      !profile.lastName ||
+      !profile.name ||
+      !profile.surname ||
       !profile.email ||
       !profile.password
     ) {
@@ -77,21 +78,36 @@ const ProfilePage = () => {
       return;
     }
 
-    // Profil güncelleme işlemi için bir PUT isteği yapın
+    // Google Sheets'e kaydetmek için veri hazırlama
+    const rowData = [
+      profile.name,
+      profile.surname,
+      profile.email,
+      profile.password,
+      profile.country,
+      profile.telephone,
+      profile.gender,
+      profile.birthYear,
+      profile.birthMonth,
+      profile.birthDay,
+      profile.photoURL,
+    ];
+
     fetch(
       "https://v1.nocodeapi.com/nazhhoglu/google_sheets/fipygIlArinvVuqs?tabId=Sayfa1",
       {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer your_token_here", // Gerekli yetkilendirme bilgilerini buraya ekleyin
         },
-        body: JSON.stringify(profile),
+        body: JSON.stringify([rowData]), // Veri formatı API'ye göre düzenlenmeli
       }
     )
       .then((response) => response.json())
       .then((data) => {
         console.log("Profil güncellendi:", data);
+        message.success("Profil başarıyla güncellendi.");
         // Başarı mesajı veya gerekli işlemleri burada yapabilirsiniz
       })
       .catch((error) => console.error("Error updating profile:", error));
@@ -104,8 +120,8 @@ const ProfilePage = () => {
           <label>Ad</label>
           <input
             type="text"
-            name="firstName"
-            value={profile.firstName}
+            name="name"
+            value={profile.name}
             onChange={handleChange}
             placeholder="İlk adınız"
           />
@@ -114,8 +130,8 @@ const ProfilePage = () => {
           <label>Soyad</label>
           <input
             type="text"
-            name="lastName"
-            value={profile.lastName}
+            name="surname"
+            value={profile.surname}
             onChange={handleChange}
             placeholder="Soyadınız"
           />
@@ -176,6 +192,7 @@ const ProfilePage = () => {
             value={profile.password}
             onChange={handleChange}
             placeholder="Şifreniz"
+            readOnly
           />
         </div>
       </div>

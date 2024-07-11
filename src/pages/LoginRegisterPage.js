@@ -8,13 +8,16 @@ import SignInButtons from "../components/SignInButtons";
 const { TabPane } = Tabs;
 
 const LoginRegisterPage = ({ onLoginFinish }) => {
+  // useState hook'u ile aktif tab'ı yönetiyoruz
   const [activeTab, setActiveTab] = useState("1");
   const navigate = useNavigate();
 
+  // Tab değişikliklerini yönetmek için bir fonksiyon
   const onTabChange = (key) => {
     setActiveTab(key);
   };
 
+  // E-posta adresinin daha önce kullanılıp kullanılmadığını kontrol eden fonksiyon
   const checkDuplicateEmail = async (email) => {
     try {
       const response = await axios.get(
@@ -22,6 +25,7 @@ const LoginRegisterPage = ({ onLoginFinish }) => {
       );
       const users = response.data.data;
 
+      // Kullanıcıların arasında email adresini kontrol et
       const duplicateEmail = users.some(
         (user) => user.email && user.email.toLowerCase() === email.toLowerCase()
       );
@@ -33,6 +37,7 @@ const LoginRegisterPage = ({ onLoginFinish }) => {
     }
   };
 
+  // Kayıt işlemi tamamlandığında çalışacak fonksiyon
   const handleRegisterFinish = async (values) => {
     try {
       const isDuplicateEmail = await checkDuplicateEmail(values.email);
@@ -65,6 +70,7 @@ const LoginRegisterPage = ({ onLoginFinish }) => {
     }
   };
 
+  // Giriş işlemi tamamlandığında çalışacak fonksiyon
   const handleLoginFinish = async (values) => {
     onLoginFinish(values, navigate);
   };
