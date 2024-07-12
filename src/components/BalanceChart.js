@@ -20,7 +20,7 @@ const BalanceChart = ({ email }) => {
         }
         const data = await response.json();
 
-        console.log("Fetched Data:", data); // Verilerin doğru alınıp alınmadığını kontrol edin
+        console.log("Fetched Data:", data); // Verilerin doğru alınıp alınmadığı
 
         if (!data.data) {
           throw new Error("Invalid data structure");
@@ -31,7 +31,7 @@ const BalanceChart = ({ email }) => {
             item.email.trim().toLowerCase() === email.trim().toLowerCase()
         );
 
-        console.log("User Expenses:", userExpenses); // Kullanıcıya ait giderlerin doğru şekilde alınıp alınmadığını kontrol edin
+        console.log("User Expenses:", userExpenses); // Kullanıcıya ait giderlerin doğru şekilde alınıp alınmadığı
 
         let income = 0;
         let expense = 0;
@@ -51,8 +51,8 @@ const BalanceChart = ({ email }) => {
           }
         });
 
-        console.log("Total Income:", income); // Toplam gelirin doğru hesaplanıp hesaplanmadığını kontrol edin
-        console.log("Total Expense:", expense); // Toplam giderin doğru hesaplanıp hesaplanmadığını kontrol edin
+        console.log("Total Income:", income); // Toplam gelirin doğru hesaplanıp hesaplanmadığı
+        console.log("Total Expense:", expense);
 
         setTotalIncome(income);
         setTotalExpense(expense);
@@ -96,9 +96,9 @@ const BalanceChart = ({ email }) => {
       const height = chart.height;
       const ctx = chart.ctx;
 
-      ctx.clearRect(0, 0, width, height); // Mevcut çizimi temizleyin
+      ctx.clearRect(0, 0, width, height); // Mevcut çizimin temizlenmesi
 
-      // Font boyutunu dinamik olarak ayarla
+      // Font boyutunu dinamik olarak ayarlamak
       let fontSize = Math.min(
         height / 114,
         width / ctx.measureText(balanceText).width

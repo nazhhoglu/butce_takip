@@ -50,6 +50,7 @@ const App = () => {
       console.log("Gelen kullanıcılar:", users);
 
       const existingUser = users.find(
+        // Giriş yapmaya çalışan kullanıcıyı bul
         (user) =>
           user.email &&
           user.password &&
@@ -101,7 +102,7 @@ const App = () => {
           path="/profile"
           element={
             <AppLayout>
-              <ProfilePage />
+              <ProfilePage email={email} />
             </AppLayout>
           }
         />

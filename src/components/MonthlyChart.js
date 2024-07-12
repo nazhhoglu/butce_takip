@@ -44,7 +44,7 @@ const MonthlyChart = ({ email }) => {
       const userExpenses = data.data.filter((item) => {
         console.log("Filtrelenmemiş Eleman:", item);
 
-        // Tarih formatını YYYY-MM-DD olarak düzenleyelim
+        // Tarih formatını YYYY-MM-DD olarak düzenleme
         const [day, month, year] = item.calendar_date.split(".");
         const itemDate = new Date(`${year}-${month}-${day}`);
 

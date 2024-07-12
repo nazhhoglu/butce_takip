@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Badge, Calendar, message, Spin } from "antd";
 import moment from "moment";
-import "moment/locale/tr"; // moment'ın Türkçe dil dosyasını içe aktarın
+import "moment/locale/tr";
 import { ConfigProvider } from "antd";
-import trTR from "antd/es/locale/tr_TR"; // Ant Design Türkçe dil dosyasını içe aktarın
+import trTR from "antd/es/locale/tr_TR";
 
-// moment'ı Türkçe diline ayarlayın
 moment.locale("tr");
 
 const CalendarPage = ({ email }) => {
@@ -22,7 +21,7 @@ const CalendarPage = ({ email }) => {
   }, [email]);
 
   useEffect(() => {
-    // Yearly data aggregation
+    // Yıllık veri oluştur
     const yearly = {};
     Object.keys(spendingData).forEach((date) => {
       const year = moment(date).format("YYYY");

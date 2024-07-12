@@ -11,8 +11,8 @@ import {
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
-import "moment/locale/tr"; // Türkçe locale ekleyin
-moment.locale("tr"); // Türkçe locale'ı aktif edin
+import "moment/locale/tr";
+moment.locale("tr");
 
 const { Option } = Select;
 

@@ -25,13 +25,13 @@ const ProfilePage = () => {
       {
         method: "GET",
         headers: {
-          Authorization: "Bearer your_token_here", // Gerekli yetkilendirme bilgilerini buraya ekleyin
+          Authorization: "Bearer your_token_here",
         },
       }
     )
       .then((response) => response.json())
       .then((data) => {
-        const user = data.data[0]; // Datanın formatına göre düzenleyin
+        const user = data.data[0]; // Veri formatına göre düzenledik
         setProfile({
           name: user.name || "",
           surname: user.surname || "",
@@ -51,6 +51,7 @@ const ProfilePage = () => {
   }, []);
 
   const handleChange = (e) => {
+    // Kullanıcı girişlerini alır
     const { name, value } = e.target;
     setProfile({ ...profile, [name]: value });
   };
@@ -67,6 +68,7 @@ const ProfilePage = () => {
   };
 
   const handleSubmit = (e) => {
+    // Formu gönderir
     e.preventDefault();
     if (
       !profile.name ||
@@ -99,16 +101,15 @@ const ProfilePage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer your_token_here", // Gerekli yetkilendirme bilgilerini buraya ekleyin
+          Authorization: "Bearer your_token_here",
         },
-        body: JSON.stringify([rowData]), // Veri formatı API'ye göre düzenlenmeli
+        body: JSON.stringify([rowData]),
       }
     )
       .then((response) => response.json())
       .then((data) => {
         console.log("Profil güncellendi:", data);
         message.success("Profil başarıyla güncellendi.");
-        // Başarı mesajı veya gerekli işlemleri burada yapabilirsiniz
       })
       .catch((error) => console.error("Error updating profile:", error));
   };

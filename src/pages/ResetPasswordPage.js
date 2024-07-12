@@ -7,15 +7,12 @@ function ResetPasswordPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Burada şifre sıfırlama işlemini başlatacak kodu ekleyeceksiniz
-    console.log("Şifre sıfırlama isteği gönderildi:", email);
+    // Şifre sıfırlama işlemi
     message.info("Şifre sıfırlama isteği gönderildi: " + email);
   };
 
   const handleCancel = () => {
-    // Kapatma işlevi burada eklenecek, giriş sayfasına yönlendirme yapılacak
-    console.log("Şifre sıfırlama işlemi iptal edildi.");
-    // Yönlendirme yapmak için aşağıdaki kodu kullanabilirsiniz
+    // Sayfayı Kapatma işlemi
     window.location.href = "/";
   };
 

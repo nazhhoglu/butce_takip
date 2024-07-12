@@ -1,13 +1,11 @@
-/* src/components/Menu.css */
-
   /* Menü öğeleri üzerine gelindiğinde */
   .ant-menu-item:hover {
-    background-color: rgb(83, 153, 179); /* Arkaplan rengi hafif gri olacak */
+    background-color: rgb(83, 153, 179); /* Arkaplan rengi  */
   }
   
   /* Seçili menü öğesi */
   .ant-menu-item-selected {
-    background-color: rgba(224,233,238,255) !important; /* Seçili menü öğesi mavi tonunda olacak */
+    background-color: rgba(224,233,238,255) !important; /* Seçili menü öğesi  */
   }
 
   .custom-menu .ant-menu-item a {

@@ -4,7 +4,7 @@ import { Form, Input, Button, DatePicker, Select, message } from "antd";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import BalanceChart from "../components/BalanceChart";
-import CategoryCharts from "../components/CategoryCharts"; // Yeni bileşeni içe aktarın
+import CategoryCharts from "../components/CategoryCharts";
 import MonthlyChart from "../components/MonthlyChart";
 
 const { Option } = Select;
@@ -47,8 +47,7 @@ const HomePage = ({ email }) => {
     <div>
       <div style={{ display: "flex", gap: "100px", marginLeft: "50px" }}>
         <BalanceChart email={email} />
-        <CategoryCharts email={email} />{" "}
-        {/* CategoryCharts bileşenini ekleyin */}
+        <CategoryCharts email={email} /> {}
       </div>
       <div style={{ display: "flex", gap: "100px", padding: "50px" }}>
         <div style={{ flex: 2, minWidth: "600px" }}>

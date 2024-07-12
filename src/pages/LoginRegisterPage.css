@@ -22,8 +22,8 @@
   }
 
   .ant-tabs-tab {
-    font-size: 20px !important ;/* İstediğiniz font boyutunu buraya girin */
-    color: rgb(83, 153, 179); /* İstediğiniz rengi buraya girin */
+    font-size: 20px !important ;
+    color: rgb(83, 153, 179); 
     margin-right: 30px ;
     font-weight: bold; 
     margin-right: 50px;
@@ -31,13 +31,13 @@
   }
   
   .ant-tabs-tab-active {
-    font-size: 25px !important; /* Aktif tabın font boyutunu buraya girin */
-    color:black; /* Aktif tabın rengini buraya girin */
+    font-size: 25px !important; /* Aktif tabın font boyutu */
+    color:black; /* Aktif tabın rengini */
     font-weight: bold; 
   }
 
   .ant-tabs-ink-bar {
-    background-color: rgb(32, 79, 97) !important; /* Tabın altındaki çizginin rengini buraya girin */
+    background-color: rgb(32, 79, 97) !important; /* Tabın altındaki çizginin rengini  */
   }
 
   .ant-tabs-nav {
@@ -60,8 +60,8 @@
 .ant-input-password,
 .ant-select-selector,
 .ant-checkbox-wrapper {
-  padding: 10px; /* İç boşluk (padding) ekler */
-  border: 0px solid #000000; /* Giriş alanının kenarlığını belirler */
+  padding: 10px; /* İç boşluk */
+  border: 0px solid #000000; /* Giriş alanının kenarlığını */
   border-radius: 8px; /* Köşeleri yuvarlar */
   transition: border-color 0.3s; /* Border rengini değiştirdiğimizde geçiş efekti ekler */
 }
@@ -72,19 +72,18 @@
 .ant-select-selector:focus {
   border-color: rgb(101, 164, 185); /* Odaklanıldığında kenarlık rengini değiştirir */
   box-shadow: 0 0 5px rgba(101, 164, 185); /* Hafif bir gölge ekleyerek odaklandığını belli eder */
-  /*font-size: 10px;*/
 }
 
 label {
-  font-weight: bold;      /* Yazı stilini kalın yapar */
+  font-weight: bold;      
 }
 
 .forgot-password-link {
-  color: rgb(83,153,179); /* İstediğiniz rengi buraya ekleyin */
+  color: rgb(83,153,179); 
   text-decoration: underline; /* Altını çizmek için */
 }
 .forgot-password-link:hover {
-  color: rgb(83,153,179); /* Hover sırasında istediğiniz rengi buraya ekleyin */
+  color: rgb(83,153,179); /* Hover sırasında */
   text-decoration: underline; /* Altını çizmek için */
 }
 .custom-checkbox .ant-checkbox-inner {
@@ -123,7 +122,6 @@ label {
 .floating-label input:not(:placeholder-shown) + label {
   top: 10px;
   font-size: 12px;
-  /*background: #fff; /* Beyaz arkaplan, gerektiğinde değiştirilebilir */
   padding: 0 5px;
   color:rgb(32, 79, 97,0.4);
 }
